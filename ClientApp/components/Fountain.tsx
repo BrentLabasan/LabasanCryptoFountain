@@ -12,22 +12,22 @@ export default class Fountain extends React.Component<RouteComponentProps<{}>, {
                     <Instructions tokenName="SECOND" />
                 </Tab>
                 <Tab eventKey={2} title="MINUTE">
-                        Tab 2 content
+                    <Instructions tokenName="MINUTE" />
                 </Tab>
                 <Tab eventKey={3} title="HOUR">
-                        Tab 3 content
+                <Instructions tokenName="HOUR" />
                 </Tab>
                 <Tab eventKey={4} title="DAY">
-                        Tab  content
+                <Instructions tokenName="DAY" />
                 </Tab>
                 <Tab eventKey={5} title="WEEK">
-                        Tab  content
+                <Instructions tokenName="WEEK" />
                 </Tab>
                 <Tab eventKey={6} title="MONTH">
-                        Tab  content
+                <Instructions tokenName="MONTH" />
                 </Tab>
                 <Tab eventKey={7} title="YEAR">
-                        Tab  content
+                <Instructions tokenName="YEAR" />
                 </Tab>
             </Tabs>
         </div>;
