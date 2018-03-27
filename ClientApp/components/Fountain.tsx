@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ApplicationState }  from '../store';
+import { ApplicationState } from '../store';
 import * as CounterStore from '../store/Counter';
 import * as WeatherForecasts from '../store/WeatherForecasts';
+
+import { Tabs, Tab } from 'react-bootstrap';
 
 type CounterProps =
     CounterStore.CounterState
@@ -13,13 +15,29 @@ type CounterProps =
 class Counter extends React.Component<CounterProps, {}> {
     public render() {
         return <div>
-            <h1>Fountain</h1>
-
-            <p>This is a simple example of a React component.</p>
-
-            <p>Current count: <strong>{ this.props.count }</strong></p>
-
-            <button onClick={ () => { this.props.increment() } }>Increment</button>
+            <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+                <Tab eventKey={1} title="SECOND">
+                    Tab 1 content
+                </Tab>
+                <Tab eventKey={2} title="MINUTE">
+                        Tab 2 content
+                </Tab>
+                <Tab eventKey={3} title="HOUR">
+                        Tab 3 content
+                </Tab>
+                <Tab eventKey={4} title="DAY">
+                        Tab  content
+                </Tab>
+                <Tab eventKey={5} title="WEEK">
+                        Tab  content
+                </Tab>
+                <Tab eventKey={6} title="MONTH">
+                        Tab  content
+                </Tab>
+                <Tab eventKey={7} title="YEAR">
+                        Tab  content
+                </Tab>
+            </Tabs>
         </div>;
     }
 }
