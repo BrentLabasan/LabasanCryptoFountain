@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Button } from 'react-bootstrap';
 
 export interface Props {
     tokenName: string;
@@ -29,7 +30,7 @@ export default class Instructions extends React.Component<Props> {
                 <li>Enter your Stellar account's public address/key into the form below and click Receive.
                     <ul>
                         <li>
-<input type="text" />
+<input type="text" /> <Button bsStyle="success">Receive</Button>
                         </li>
                     </ul>
                 </li>
