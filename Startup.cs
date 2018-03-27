@@ -48,7 +48,7 @@ namespace TST_Fountain
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{tokenName?}/{address?}");
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
