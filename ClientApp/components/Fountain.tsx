@@ -63,25 +63,31 @@ export default class Fountain extends React.Component<IProps, IState>  {
                     if (result.balances[result.balances.length - 1].balance >= 4.5) {
                         this.setState({ hasEnoughXlm: true });
                         // alert("more than 4.5");
+
+
+                        // I moved this entire chunk from outter to inner. Not 100% sure if that was correct.
+                        let canAcceptToken = false;
+                        result.balances.forEach((b: any) => {
+                            if (b.asset_code) {
+                                // console.log("typeof b.asset_code", typeof b.asset_code);
+                                if (this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase()) {
+                                    canAcceptToken = true;
+                                    // There's no built-in ability to break in forEach. https://stackoverflow.com/a/2641374
+                                }
+                            }
+                        });
+                        if (canAcceptToken) {
+                            this.setState({ canAcceptToken: true });
+                        } else {
+                            this.setState({ canAcceptToken: false });
+                        }
+
                     } else {
                         this.setState({ hasEnoughXlm: false });
                         // alert("less than 4.5");
                     }
 
-                    let canAcceptToken = false;
-                    result.balances.forEach((b: any) => {
-                        if (b.asset_code) {
-                            console.log("typeof b.asset_code", typeof b.asset_code);
-                            if (this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase()) {
-                                canAcceptToken = true;
-                            }
-                        }
-                    });
-                    if (canAcceptToken) {
-                        this.setState({ canAcceptToken: true });
-                    } else {
-                        this.setState({ canAcceptToken: false });
-                    }
+
 
                 });
         } else { // if query entered into field isn't a valid public key
