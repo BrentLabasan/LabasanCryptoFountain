@@ -47,23 +47,24 @@ export default class Fountain extends React.Component<IProps, IState>  {
                 .accountId(address)
                 .call().then(function (r) {
                     console.log(r);
-                    console.log(typeof r);
-                    console.log(Object.getOwnPropertyNames(r));
-                    // console.log(Object.getOwnPropertyNames(r).parse().balances);
-                    // console.log(JSON.parse(r.toString()));
 
-                    console.log(JSON.stringify(r));
-
-                    console.log(JSON.parse(JSON.stringify(r)));
-
+                    // console.log(typeof r);
+                    // console.log(Object.getOwnPropertyNames(r));
+                    // console.log(JSON.stringify(r));
+                    // console.log(JSON.parse(JSON.stringify(r)));
+                    let result = JSON.parse(JSON.stringify(r));
                     console.log(JSON.parse(JSON.stringify(r)).id);
+                    console.log(JSON.parse(JSON.stringify(r)).balances);
 
+                    alert(result.id);
                     // let obj = JSON.parse(r);
                     // console.log(obj.id);
 
                     // console.log(r.balances);
-                    // if (r.balances[r.balance.length].balance >= 4.5) {
+
+                    // if (result.balances[result.balances.length].balance >= 4.5) {
                     //     this.setState({ hasEnoughXlm: true });
+                    //     alert("more than 4.5");
                     // } else {
                     //     this.setState({ hasEnoughXlm: false });
                     // }
