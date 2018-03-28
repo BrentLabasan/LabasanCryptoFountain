@@ -12,7 +12,7 @@ interface IState {
     addressIsValid?: boolean;
     hasEnoughXlm: boolean;
     canAcceptToken: boolean;
-    key: number;
+    key?: number;
 }
 
 interface MyObj {
@@ -24,12 +24,13 @@ interface IProps extends RouteComponentProps<{}> {
     addressIsValid?: boolean;
     meow: (address: string) => any;
     // handleSelect: (tabKey: number) => any;
-    key: number;
+    key?: number;
+    onSelect?: Function;
 }
 
 export default class Fountain extends React.Component<IProps, IState>  {
-    constructor(props: IProps) {
-        super(props);
+    constructor(props: IProps, context: any) {
+        super(props, context);
         // set initial state
         this.state = {
             tokenName: "SECOND",
@@ -40,6 +41,8 @@ export default class Fountain extends React.Component<IProps, IState>  {
             canAcceptToken: false,
             key: 1
         }
+
+        this.handleSelect = this.handleSelect.bind(this);
     }
 
     meow = (address: string) => {
@@ -112,7 +115,10 @@ export default class Fountain extends React.Component<IProps, IState>  {
 
     public render() {
         return <div>
-            <Tabs activeKey={this.state.key} onSelect={this.handleSelect} animation={false} id="controlled-tab-example">
+            <Tabs defaultActiveKey={3} id="uncontrolled-tab-example" animation={false}>
+
+            {/* <Tabs activeKey={this.state.key} onSelect={this.handleSelect} animation={false} id="controlled-tab-example"> */}
+
                 <Tab eventKey={1} title="SECOND">
                     <Instructions tokenName="SECOND" issuerAccountId="GAYZT6ZQCWRSUYUYKTTMX2BACITUQRXZPBXLY7H5PJ4WUNJU6ZET42W5" address={this.state.address} addressIsValid={this.state.addressIsValid} hasEnoughXlm={this.state.hasEnoughXlm} canAcceptToken={this.state.canAcceptToken} meow={this.meow} />
                 </Tab>
