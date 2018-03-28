@@ -45,7 +45,7 @@ export default class Fountain extends React.Component<IProps, IState>  {
             let server = new StellarSdk.Server('https://horizon.stellar.org');
             server.accounts()
                 .accountId(address)
-                .call().then(function (r) {
+                .call().then((r) => {
                     console.log(r);
 
                     // console.log(typeof r);
@@ -63,10 +63,10 @@ export default class Fountain extends React.Component<IProps, IState>  {
                     // console.log(r.balances);
 
                     if (result.balances[result.balances.length - 1].balance >= 4.5) {
-                        // this.setState({ hasEnoughXlm: true });
+                        this.setState({ hasEnoughXlm: true });
                         alert("more than 4.5");
                     } else {
-                        // this.setState({ hasEnoughXlm: false });
+                        this.setState({ hasEnoughXlm: false });
                         alert("less than 4.5");
 
                     }
