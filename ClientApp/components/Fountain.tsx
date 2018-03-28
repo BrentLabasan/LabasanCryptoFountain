@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import * as StellarSdk from 'stellar-sdk';
 
 import { Tabs, Tab } from 'react-bootstrap';
 import Instructions from './Instructions/Instructions';
@@ -28,6 +29,13 @@ export default class Fountain extends React.Component<IProps, IState>  {
 
     meow = (address: string) => {
         // console.log(address);
+
+        if (StellarSdk.StrKey.isValidEd25519PublicKey(address)) {
+            console.log("corr")
+        } else {
+            console.log("inv")
+          }
+
         this.setState({address: address});
     }
     

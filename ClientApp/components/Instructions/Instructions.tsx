@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import * as StellarSdk from 'stellar-sdk';
+
 interface IProps extends IState {
     tokenName: string;
     issuerAccountId: string;
@@ -19,14 +20,15 @@ export default class Instructions extends React.Component<IProps, IState> {
         super(props);
         // set initial state
 
-        this.state={address: this.props.address}
+        this.state = { address: this.props.address }
     }
 
-    
+
     addressFieldChange = (e: React.FormEvent<HTMLInputElement>) => {
         // console.log(e.currentTarget.value)
         // this.setState({address: e.currentTarget.value});
         this.props.meow(e.currentTarget.value);
+
     }
 
     handleClick = () => {
@@ -38,8 +40,8 @@ export default class Instructions extends React.Component<IProps, IState> {
         // .call().then(function(r){ console.log(r); });
 
         server.accounts()
-        .accountId("GB4P2YXKH3IYUKCBEATQ75EX7BOPWC6HPABUZVW7UNODXKH6AVWDIL3D")
-        .call().then(function(r){ console.log(r); });
+            .accountId("GB4P2YXKH3IYUKCBEATQ75EX7BOPWC6HPABUZVW7UNODXKH6AVWDIL3D")
+            .call().then(function (r) { console.log(r); });
 
         // server.accounts
         // console.log(server.accounts().accountId("GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
@@ -68,8 +70,8 @@ export default class Instructions extends React.Component<IProps, IState> {
                 <li>Enter your Stellar account's public address/key into the form below and click Receive.
                     <ul>
                         <li>
-                        {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
-                        <input type="text" onChange={this.addressFieldChange} value={ this.props.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
+                            {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
+                            <input type="text" onChange={this.addressFieldChange} value={this.props.address} /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
                         </li>
                     </ul>
                 </li>
