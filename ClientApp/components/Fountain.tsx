@@ -11,7 +11,10 @@ interface IState {
     address?: string;
     addressIsValid?: boolean;
     hasEnoughXlm: boolean;
+}
 
+interface MyObj {
+    balances: number[];
 }
 
 interface IProps extends RouteComponentProps<{}> {
@@ -44,6 +47,18 @@ export default class Fountain extends React.Component<IProps, IState>  {
                 .accountId(address)
                 .call().then(function (r) {
                     console.log(r);
+
+                    console.log(JSON.parse(r.toString()));
+
+                    // let obj = JSON.parse(r);
+                    // console.log(obj.id);
+
+                    // console.log(r.balances);
+                    // if (r.balances[r.balance.length].balance >= 4.5) {
+                    //     this.setState({ hasEnoughXlm: true });
+                    // } else {
+                    //     this.setState({ hasEnoughXlm: false });
+                    // }
                 });
         } else {
             console.log("inv")
