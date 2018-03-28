@@ -150,7 +150,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     <ul>
                         <li>
                             {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
-                            <input style={{width: 530}}type="text" onChange={this.addressFieldChange} value={this.state.address} />
+                            <input style={{width: 570}} placeholder="example: GCDMFH3RSZR3FLBHSUYPLF2XAG5TWZQDHNX5XG4UELVXICNBESDFMXTJ" type="text" onChange={this.addressFieldChange} value={this.state.address} />
                         </li>
                     </ul>
                 </li>
