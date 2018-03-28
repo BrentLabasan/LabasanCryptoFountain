@@ -12,7 +12,7 @@ interface IState {
 
 interface IProps extends RouteComponentProps<{}> {
     address?: string;
-    meow: () => any;
+    meow: (address: string) => any;
 }
 
 export default class Fountain extends React.Component<IProps, IState>  {
@@ -26,8 +26,8 @@ export default class Fountain extends React.Component<IProps, IState>  {
         }
     }
 
-    meow = () => {
-        alert("meow");
+    meow = (address: string) => {
+        alert(address);
     }
     
     

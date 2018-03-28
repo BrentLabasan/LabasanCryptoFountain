@@ -5,7 +5,7 @@ interface IProps extends IState {
     tokenName: string;
     issuerAccountId: string;
     address?: string;
-    meow: () => any;
+    meow: (address: string) => any;
 
 }
 
@@ -26,7 +26,7 @@ export default class Instructions extends React.Component<IProps, IState> {
     addressFieldChange = (e: React.FormEvent<HTMLInputElement>) => {
         console.log(e.currentTarget.value)
         // this.setState({address: e.currentTarget.value});
-        this.props.meow();
+        this.props.meow(e.currentTarget.value);
     }
 
     handleClick = () => {
