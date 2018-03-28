@@ -55,8 +55,8 @@ export default class Fountain extends React.Component<IProps, IState>  {
                     // console.log(JSON.stringify(r));
                     // console.log(JSON.parse(JSON.stringify(r)));
                     let result = JSON.parse(JSON.stringify(r));
-                    console.log(JSON.parse(JSON.stringify(r)).id);
-                    console.log(JSON.parse(JSON.stringify(r)).balances);
+                    console.log("result.id", result.id);
+                    console.log("result.balances", result.balances);
 
                     // alert(result.id);
 
@@ -69,9 +69,12 @@ export default class Fountain extends React.Component<IProps, IState>  {
                     }
 
                     let canAcceptToken = false;
-                    result.balances.forEach( (b: any) => {
-                        if ( this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase() ) {
-                            canAcceptToken = true;
+                    result.balances.forEach((b: any) => {
+                        if (b.asset_code) {
+                            console.log("typeof b.asset_code", typeof b.asset_code);
+                            if (this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase()) {
+                                canAcceptToken = true;
+                            }
                         }
                     });
                     if (canAcceptToken) {
