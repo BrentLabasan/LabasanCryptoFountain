@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
+import Stellar from 'stellar-sdk';
 
 export interface Props {
     tokenName: string;

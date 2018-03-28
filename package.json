@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@types/react-bootstrap": "^0.32.6",
+    "@types/stellar-sdk": "^0.8.2",
     "dotenv": "^5.0.1",
     "react-bootstrap": "^0.32.1",
     "stellar-sdk": "^0.8.0"
