@@ -1,16 +1,36 @@
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
-import * as Stellar from 'stellar-sdk';
-
+import * as StellarSdk from 'stellar-sdk';
 export interface Props {
     tokenName: string;
     issuerAccountId: string;
     // enthusiasmLevel?: number;
 }
 
-export default class Instructions extends React.Component<Props> {
+export default class Instructions extends React.Component<Props, {}> {
+
+    constructor(props: Props) {
+        super(props);
+        // set initial state
+    }
+
+
+
     handleClick = () => {
         alert();
+        let server = new StellarSdk.Server('https://horizon.stellar.org');
+
+        // server.transactions()
+        // .forAccount('GASOCNHNNLYFNMDJYQ3XFMI7BYHIOCFW3GJEOWRPEGK2TDPGTG2E5EDW')
+        // .call().then(function(r){ console.log(r); });
+
+        server.accounts()
+        .accountId("GB4P2YXKH3IYUKCBEATQ75EX7BOPWC6HPABUZVW7UNODXKH6AVWDIL3D")
+        .call().then(function(r){ console.log(r); });
+
+        // server.accounts
+        // console.log(server.accounts().accountId("GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
+
     }
 
     public render() {
@@ -35,7 +55,7 @@ export default class Instructions extends React.Component<Props> {
                 <li>Enter your Stellar account's public address/key into the form below and click Receive.
                     <ul>
                         <li>
-<input type="text" /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
+                            <input type="text" /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
                         </li>
                     </ul>
                 </li>
