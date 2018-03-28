@@ -27,7 +27,8 @@ export default class Fountain extends React.Component<IProps, IState>  {
     }
 
     meow = (address: string) => {
-        alert(address);
+        // console.log(address);
+        this.setState({address: address});
     }
     
     

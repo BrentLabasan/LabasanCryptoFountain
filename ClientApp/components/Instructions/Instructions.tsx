@@ -24,7 +24,7 @@ export default class Instructions extends React.Component<IProps, IState> {
 
     
     addressFieldChange = (e: React.FormEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value)
+        // console.log(e.currentTarget.value)
         // this.setState({address: e.currentTarget.value});
         this.props.meow(e.currentTarget.value);
     }
@@ -69,7 +69,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     <ul>
                         <li>
                         {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
-                        <input type="text" onChange={this.addressFieldChange} value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
+                        <input type="text" onChange={this.addressFieldChange} value={ this.props.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
                         </li>
                     </ul>
                 </li>
