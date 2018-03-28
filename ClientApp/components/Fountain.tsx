@@ -14,6 +14,7 @@ interface IState {
     canAcceptToken: boolean;
     key?: number;
     onSelect?: Function;
+    lastEnteredAddress?: string;
 
 }
 
@@ -45,10 +46,15 @@ export default class Fountain extends React.Component<IProps, IState>  {
             addressIsValid: false,
             hasEnoughXlm: false,
             canAcceptToken: false,
-            key: 1
+            key: 1,
+            lastEnteredAddress: ""
         }
 
         // this.handleSelect = this.handleSelect.bind(this);
+    }
+
+    changeLastEnteredAddress = (address?: string) => {
+        this.setState({lastEnteredAddress: address});
     }
 
 

@@ -42,6 +42,7 @@ export default class Instructions extends React.Component<IProps, IState> {
 
         if (StellarSdk.StrKey.isValidEd25519PublicKey(address)) {
             this.setState({ addressIsValid: true });
+            localStorage.setItem('lastEnteredAddress', address);
             // console.log("corr")
             let server = new StellarSdk.Server('https://horizon.stellar.org');
             server.accounts()
@@ -125,11 +126,20 @@ export default class Instructions extends React.Component<IProps, IState> {
 
     }
 
+    componentWillMount() {
+        console.log("componentWillMount");
+        if (!this.state.address) {
+            if (localStorage.getItem("lastEnteredAddress")) {
+                this.setState({ address: localStorage.getItem("lastEnteredAddress") || "" });
+            }
+        }
+    }
+
     public render() {
 
-        let checkboxStep1 = this.state.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
-        let checkboxStep2 = this.state.addressIsValid && this.state.hasEnoughXlm ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
-        let checkboxStep3 = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
+        let checkboxStep1 = this.state.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />;
+        let checkboxStep2 = this.state.addressIsValid && this.state.hasEnoughXlm ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />;
+        let checkboxStep3 = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />;
         let checkboxStep4 = null;
 
 
