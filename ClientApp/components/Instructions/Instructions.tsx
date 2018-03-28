@@ -9,6 +9,7 @@ interface IProps extends IState {
     issuerAccountId: string;
     address?: string;
     addressIsValid?: boolean;
+    canAcceptToken?: boolean;
 
     meow: (address: string) => any;
 
