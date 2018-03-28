@@ -31,7 +31,12 @@ export default class Fountain extends React.Component<IProps, IState>  {
         // console.log(address);
 
         if (StellarSdk.StrKey.isValidEd25519PublicKey(address)) {
-            console.log("corr")
+            // console.log("corr")
+            let server = new StellarSdk.Server('https://horizon.stellar.org');
+            server.accounts()
+            .accountId(address)
+            .call().then(function (r) { console.log(r); });
+
         } else {
             console.log("inv")
           }
