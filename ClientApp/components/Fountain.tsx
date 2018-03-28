@@ -6,7 +6,7 @@ import { Tabs, Tab } from 'react-bootstrap';
 import Instructions from './Instructions/Instructions';
 
 interface IState {
-    tokenName: string;
+    selectedToken: string;
     issuerAccountId: string;
     address?: string;
     addressIsValid?: boolean;
@@ -36,7 +36,7 @@ export default class Fountain extends React.Component<IProps, IState>  {
         super(props, context);
         // set initial state
         this.state = {
-            tokenName: "SECOND",
+            selectedToken: "SECOND",
             issuerAccountId: "",
             address: "",
             addressIsValid: false,
@@ -85,8 +85,8 @@ export default class Fountain extends React.Component<IProps, IState>  {
                     result.balances.forEach((b: any) => {
                         if (b.asset_code) {
                             // console.log("typeof b.asset_code", typeof b.asset_code);
-                            console.log("compare balances accepted vs. tab's token", this.state.tokenName.toUpperCase(), b.asset_code.toUpperCase());
-                            if (this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase()) {
+                            console.log("compare balances accepted vs. tab's token", this.state.selectedToken.toUpperCase(), b.asset_code.toUpperCase());
+                            if (this.state.selectedToken.toUpperCase() === b.asset_code.toUpperCase()) {
                                 canAcceptToken = true;
                                 // There's no built-in ability to break in forEach. https://stackoverflow.com/a/2641374
                             }
@@ -115,31 +115,31 @@ export default class Fountain extends React.Component<IProps, IState>  {
 
         switch (key) {
             case 1: {
-                this.setState({ key: key, tokenName: "SECOND" });
+                this.setState({ key: key, selectedToken: "SECOND" });
                 break;
             }
             case 2: {
-                this.setState({ key: key, tokenName: "MINUTE" });
+                this.setState({ key: key, selectedToken: "MINUTE" });
                 break;
             }
             case 3: {
-                this.setState({ key: key, tokenName: "HOUR" });
+                this.setState({ key: key, selectedToken: "HOUR" });
                 break;
             }
             case 4: {
-                this.setState({ key: key, tokenName: "DAY" });
+                this.setState({ key: key, selectedToken: "DAY" });
                 break;
             }
             case 5: {
-                this.setState({ key: key, tokenName: "WEEK" });
+                this.setState({ key: key, selectedToken: "WEEK" });
                 break;
             }
             case 6: {
-                this.setState({ key: key, tokenName: "MONTH" });
+                this.setState({ key: key, selectedToken: "MONTH" });
                 break;
             }
             case 7: {
-                this.setState({ key: key, tokenName: "YEAR" });
+                this.setState({ key: key, selectedToken: "YEAR" });
                 break;
             }
             default: {
