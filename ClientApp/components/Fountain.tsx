@@ -55,8 +55,8 @@ export default class Fountain extends React.Component<IProps, IState>  {
                     // console.log(JSON.stringify(r));
                     // console.log(JSON.parse(JSON.stringify(r)));
                     let result = JSON.parse(JSON.stringify(r));
-                    console.log("result.id", result.id);
-                    console.log("result.balances", result.balances);
+                    // console.log("result.id", result.id);
+                    // console.log("result.balances", result.balances);
 
                     // alert(result.id);
 
@@ -70,7 +70,7 @@ export default class Fountain extends React.Component<IProps, IState>  {
                         result.balances.forEach((b: any) => {
                             if (b.asset_code) {
                                 // console.log("typeof b.asset_code", typeof b.asset_code);
-                                console.log(this.state.tokenName.toUpperCase(), b.asset_code.toUpperCase());
+                                // console.log(this.state.tokenName.toUpperCase(), b.asset_code.toUpperCase());
                                 if ( this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase() ) {
                                     canAcceptToken = true;
                                     // There's no built-in ability to break in forEach. https://stackoverflow.com/a/2641374
