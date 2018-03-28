@@ -7,11 +7,11 @@ import Instructions from './Instructions/Instructions';
 interface IState {
     tokenName: string;
     issuerAccountId: string;
-    address: string;
+    address?: string;
 }
 
 interface IProps extends RouteComponentProps<{}> {
-    address: string;
+    address?: string;
 
 }
 

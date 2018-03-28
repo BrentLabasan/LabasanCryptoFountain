@@ -4,16 +4,16 @@ import * as StellarSdk from 'stellar-sdk';
 interface IProps {
     tokenName: string;
     issuerAccountId: string;
-    address: string;
+    address?: string;
 }
 
 interface IState {
-    address: string;
+    address?: string;
 }
 
 export default class Instructions extends React.Component<IProps, IState> {
 
-    constructor(props: IProps) {
+    constructor(state: IState, props: IProps) {
         super(props);
         // set initial state
 
@@ -23,6 +23,7 @@ export default class Instructions extends React.Component<IProps, IState> {
     
     addressFieldChange = (e: React.FormEvent<HTMLInputElement>) => {
         console.log(e.currentTarget.value)
+        this.setState({address: e.currentTarget.value});
     }
 
     handleClick = () => {
@@ -64,7 +65,8 @@ export default class Instructions extends React.Component<IProps, IState> {
                 <li>Enter your Stellar account's public address/key into the form below and click Receive.
                     <ul>
                         <li>
-                            <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
+                        {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
+                        <input type="text" onChange={this.addressFieldChange} value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
                         </li>
                     </ul>
                 </li>
