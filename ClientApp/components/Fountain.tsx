@@ -40,14 +40,14 @@ export default class Fountain extends React.Component<IProps, IState>  {
             server.accounts()
             .accountId(address)
             .call().then(function (r) { console.log(r); });
-
+            this.forceUpdate();
         } else {
             console.log("inv")
             this.setState({addressIsValid: false});
 
           }
 
-        this.setState({address: address});
+        this.setState({address: address.toUpperCase()});
     }
     
     

@@ -84,7 +84,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     </ul>
                 </li>
 
-                {this.state.addressIsValid && <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li>}
+                {this.props.addressIsValid && <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li>}
 
             </ol>
             {/* this.state.address: {this.state.address} */}
