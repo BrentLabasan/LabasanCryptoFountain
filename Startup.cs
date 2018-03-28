@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using TST_Fountain.Models;
 
 namespace TST_Fountain
 {
@@ -23,6 +25,9 @@ namespace TST_Fountain
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddDbContext<TST_FountainContext>(options =>
+                options.UseSqlite("Data Source=TST_Fountain.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

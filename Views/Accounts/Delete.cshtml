@@ -1,0 +1,63 @@
+@model TST_Fountain.Models.Account
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentSecond)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentSecond)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentMinute)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentMinute)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentHour)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentHour)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentDay)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentDay)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentWeek)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentWeek)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentMonth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentMonth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentYear)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

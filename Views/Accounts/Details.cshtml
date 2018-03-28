@@ -1,0 +1,60 @@
+@model TST_Fountain.Models.Account
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentSecond)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentSecond)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentMinute)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentMinute)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentHour)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentHour)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentDay)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentDay)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentWeek)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentWeek)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentMonth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentMonth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSentYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSentYear)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

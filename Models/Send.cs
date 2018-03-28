@@ -1,6 +1,6 @@
 using System;
 
-namespace TST_Fountain.Sends
+namespace TST_Fountain.Models
 {
     public class Send
     {
