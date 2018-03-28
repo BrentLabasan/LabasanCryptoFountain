@@ -140,7 +140,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     <ul>
                         <li>
                             {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
-                            <input type="text" onChange={this.addressFieldChange} value={this.props.address} />
+                            <input type="text" onChange={this.addressFieldChange} value={this.state.address} />
                         </li>
                     </ul>
                 </li>
