@@ -69,7 +69,7 @@ export default class Fountain extends React.Component<IProps, IState>  {
                     }
 
                     let canAcceptToken = false;
-                    result.balances.forEach( (b) => {
+                    result.balances.forEach( (b: any) => {
                         if ( this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase() ) {
                             canAcceptToken = true;
                         }
