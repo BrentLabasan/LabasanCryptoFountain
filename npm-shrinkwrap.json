@@ -46,6 +46,23 @@
         "@types/react": "15.0.35"
       }
     },
+    "@types/react-icon-base": {
+      "version": "2.1.1",
+      "resolved": "https://registry.npmjs.org/@types/react-icon-base/-/react-icon-base-2.1.1.tgz",
+      "integrity": "sha512-bWpelSYpxtX0m+g1+pmp//u/VdAiaKh7aIeSAvyYa/q0Ludig3aPoxaijMAGiKvaqOxp6SlmLgxOcW3yjq/2SA==",
+      "requires": {
+        "@types/react": "15.0.35"
+      }
+    },
+    "@types/react-icons": {
+      "version": "2.2.5",
+      "resolved": "https://registry.npmjs.org/@types/react-icons/-/react-icons-2.2.5.tgz",
+      "integrity": "sha512-nrjGkzFPKFCS9o1A3A7ZrtwYMGs7Bdkqz/xS2kPd0kBmyVEcAqTJT2il/O/qZTAHn/YXDtqKdtWU6oUxNSO9IA==",
+      "requires": {
+        "@types/react": "15.0.35",
+        "@types/react-icon-base": "2.1.1"
+      }
+    },
     "@types/react-redux": {
       "version": "4.4.45",
       "resolved": "https://registry.npmjs.org/@types/react-redux/-/react-redux-4.4.45.tgz",

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import * as StellarSdk from 'stellar-sdk';
 
+import * as FontAwesome from 'react-icons/lib/md'
+
 interface IProps extends IState {
     tokenName: string;
     issuerAccountId: string;
@@ -59,7 +61,7 @@ export default class Instructions extends React.Component<IProps, IState> {
         return <div>
             <h1>Instructions To Receive {this.props.tokenName} Tokens</h1>
             <ol>
-            <li>Enter your Stellar account's public address/key into the form below to determine if your account is able to receive {this.props.tokenName} Tokens.
+            <li>{this.props.addressIsValid ? <FontAwesome.MdCheckBox/> : <FontAwesome.MdCheckBoxOutlineBlank/> } Enter your Stellar account's public address/key into the form below to determine if your account is able to receive {this.props.tokenName} Tokens.
                     <ul>
                         <li>
                             {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}

@@ -47,7 +47,7 @@ export default class Fountain extends React.Component<IProps, IState>  {
 
           }
 
-        this.setState({address: address.toUpperCase()});
+        this.setState({address: address});
     }
     
     
