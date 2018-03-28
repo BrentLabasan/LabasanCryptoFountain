@@ -5,6 +5,8 @@ interface IProps extends IState {
     tokenName: string;
     issuerAccountId: string;
     address?: string;
+    meow: () => any;
+
 }
 
 interface IState {
