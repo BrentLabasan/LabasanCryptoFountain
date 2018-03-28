@@ -25,7 +25,8 @@ export default class Instructions extends React.Component<IProps, IState> {
     
     addressFieldChange = (e: React.FormEvent<HTMLInputElement>) => {
         console.log(e.currentTarget.value)
-        this.setState({address: e.currentTarget.value});
+        // this.setState({address: e.currentTarget.value});
+        this.props.meow();
     }
 
     handleClick = () => {
