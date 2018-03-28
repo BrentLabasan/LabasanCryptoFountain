@@ -63,7 +63,7 @@ export default class Instructions extends React.Component<IProps, IState> {
         return <div>
             <h1>Instructions To Receive {this.props.tokenName} Tokens</h1>
             <ol>
-                <li>{this.props.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />} Enter your Stellar account's public address/key into the form below to determine if your account is able to receive {this.props.tokenName} Tokens.
+                <li>{this.props.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />} Enter your Stellar account's public address/key.
                     <ul>
                         <li>
                             {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
