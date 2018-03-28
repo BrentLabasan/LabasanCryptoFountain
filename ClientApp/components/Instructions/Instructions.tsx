@@ -6,12 +6,16 @@ interface IProps extends IState {
     tokenName: string;
     issuerAccountId: string;
     address?: string;
+    addressIsValid?: boolean;
+
     meow: (address: string) => any;
 
 }
 
 interface IState {
     address?: string;
+    addressIsValid?: boolean;
+
 }
 
 export default class Instructions extends React.Component<IProps, IState> {
@@ -20,7 +24,10 @@ export default class Instructions extends React.Component<IProps, IState> {
         super(props);
         // set initial state
 
-        this.state = { address: this.props.address }
+        this.state = { 
+            address: this.props.address,
+            addressIsValid: this.props.addressIsValid
+        }
     }
 
 
@@ -52,6 +59,14 @@ export default class Instructions extends React.Component<IProps, IState> {
         return <div>
             <h1>Instructions To Receive {this.props.tokenName} Tokens</h1>
             <ol>
+            <li>Enter your Stellar account's public address/key into the form below to determine if your account is able to receive {this.props.tokenName} Tokens.
+                    <ul>
+                        <li>
+                            {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
+                            <input type="text" onChange={this.addressFieldChange} value={this.props.address} /> 
+                        </li>
+                    </ul>
+                </li>
 
                 <li>Make sure that your Stellar account has enough XLM in it to support base fees.
                     <ul>
@@ -61,22 +76,18 @@ export default class Instructions extends React.Component<IProps, IState> {
                         </li>
                     </ul>
                 </li>
+
                 <li>Allow your Stellar account to accept {this.props.tokenName} tokens.
                     <ul>
                         <li>Asset Code: {this.props.tokenName}</li>
                         <li>Issuer Account ID: {this.props.issuerAccountId}</li>
                     </ul>
                 </li>
-                <li>Enter your Stellar account's public address/key into the form below and click Receive.
-                    <ul>
-                        <li>
-                            {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
-                            <input type="text" onChange={this.addressFieldChange} value={this.props.address} /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
-                        </li>
-                    </ul>
-                </li>
+
+                {this.state.addressIsValid && <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li>}
+
             </ol>
-            this.state.address: {this.state.address}
+            {/* this.state.address: {this.state.address} */}
         </div>;
     }
 }
