@@ -47,6 +47,8 @@ export default class Fountain extends React.Component<IProps, IState>  {
                 .accountId(address)
                 .call().then(function (r) {
                     console.log(r);
+                    console.log(typeof r);
+                    console.log((<any>this).r.id);
 
                     console.log(JSON.parse(r.toString()));
 
