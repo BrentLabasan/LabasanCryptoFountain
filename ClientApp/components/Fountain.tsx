@@ -62,12 +62,14 @@ export default class Fountain extends React.Component<IProps, IState>  {
 
                     // console.log(r.balances);
 
-                    // if (result.balances[result.balances.length].balance >= 4.5) {
-                    //     this.setState({ hasEnoughXlm: true });
-                    //     alert("more than 4.5");
-                    // } else {
-                    //     this.setState({ hasEnoughXlm: false });
-                    // }
+                    if (result.balances[result.balances.length - 1].balance >= 4.5) {
+                        // this.setState({ hasEnoughXlm: true });
+                        alert("more than 4.5");
+                    } else {
+                        // this.setState({ hasEnoughXlm: false });
+                        alert("less than 4.5");
+
+                    }
                 });
         } else {
             console.log("inv")
