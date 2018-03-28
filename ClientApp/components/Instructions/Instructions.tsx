@@ -61,10 +61,17 @@ export default class Instructions extends React.Component<IProps, IState> {
     }
 
     public render() {
+
+        let checkboxStep1 = this.props.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
+        let checkboxStep2 = null ;
+        let checkboxStep3 = null;
+        let checkboxStep4 = null;
+
+
         return <div>
             <h1>Instructions To Receive {this.props.tokenName} Tokens</h1>
             <ol>
-                <li>{this.props.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />} Enter your Stellar account's public address/key.
+                <li>{checkboxStep1} Enter your Stellar account's public address/key.
                     <ul>
                         <li>
                             {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
