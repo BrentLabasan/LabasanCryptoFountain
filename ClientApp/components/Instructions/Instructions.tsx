@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import * as StellarSdk from 'stellar-sdk';
-interface IProps {
+interface IProps extends IState {
     tokenName: string;
     issuerAccountId: string;
     address?: string;
@@ -13,7 +13,7 @@ interface IState {
 
 export default class Instructions extends React.Component<IProps, IState> {
 
-    constructor(state: IState, props: IProps) {
+    constructor(props: IProps) {
         super(props);
         // set initial state
 
