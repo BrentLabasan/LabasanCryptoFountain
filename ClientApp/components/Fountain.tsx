@@ -12,6 +12,7 @@ interface IState {
     addressIsValid?: boolean;
     hasEnoughXlm: boolean;
     canAcceptToken: boolean;
+    tabKey: number;
 }
 
 interface MyObj {
@@ -22,6 +23,7 @@ interface IProps extends RouteComponentProps<{}> {
     address?: string;
     addressIsValid?: boolean;
     meow: (address: string) => any;
+    handleSelect: (tabKey: number) => any;
 }
 
 export default class Fountain extends React.Component<IProps, IState>  {
@@ -34,7 +36,8 @@ export default class Fountain extends React.Component<IProps, IState>  {
             address: "",
             addressIsValid: false,
             hasEnoughXlm: false,
-            canAcceptToken: false
+            canAcceptToken: false,
+            tabKey: 1
         }
     }
 
@@ -64,29 +67,29 @@ export default class Fountain extends React.Component<IProps, IState>  {
                         this.setState({ hasEnoughXlm: true });
                         // alert("more than 4.5");
 
-
-                        // I moved this entire chunk from outter to inner. Not 100% sure if that was correct.
-                        let canAcceptToken = false;
-                        result.balances.forEach((b: any) => {
-                            if (b.asset_code) {
-                                // console.log("typeof b.asset_code", typeof b.asset_code);
-                                // console.log(this.state.tokenName.toUpperCase(), b.asset_code.toUpperCase());
-                                if ( this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase() ) {
-                                    canAcceptToken = true;
-                                    // There's no built-in ability to break in forEach. https://stackoverflow.com/a/2641374
-                                }
-                            }
-                        });
-                        console.log(canAcceptToken);
-                        if (canAcceptToken) {
-                            this.setState({ canAcceptToken: true });
-                        } else {
-                            this.setState({ canAcceptToken: false });
-                        }
-
                     } else {
                         this.setState({ hasEnoughXlm: false });
                         // alert("less than 4.5");
+                    }
+
+                    
+                    // I moved this entire chunk from outter to inner. Not 100% sure if that was correct.
+                    let canAcceptToken = false;
+                    result.balances.forEach((b: any) => {
+                        if (b.asset_code) {
+                            // console.log("typeof b.asset_code", typeof b.asset_code);
+                            console.log("compare balances accepted vs. tab's token", this.state.tokenName.toUpperCase(), b.asset_code.toUpperCase());
+                            if ( this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase() ) {
+                                canAcceptToken = true;
+                                // There's no built-in ability to break in forEach. https://stackoverflow.com/a/2641374
+                            }
+                        }
+                    });
+                    console.log(canAcceptToken);
+                    if (canAcceptToken) {
+                        this.setState({ canAcceptToken: true });
+                    } else {
+                        this.setState({ canAcceptToken: false });
                     }
 
 
@@ -100,10 +103,15 @@ export default class Fountain extends React.Component<IProps, IState>  {
         this.setState({ address: address });
     }
 
+    handleSelect = (tabKey: number) => {
+        alert(`selected ${tabKey}`);
+        this.setState({ tabKey });
+      }
+
 
     public render() {
         return <div>
-            <Tabs defaultActiveKey={1} animation={false} id="uncontrolled-tab-example">
+            <Tabs activeKey={this.state.tabKey} onSelect={this.handleSelect(tabKey)} animation={false} id="uncontrolled-tab-example">
                 <Tab eventKey={1} title="SECOND">
                     <Instructions tokenName="SECOND" issuerAccountId="GAYZT6ZQCWRSUYUYKTTMX2BACITUQRXZPBXLY7H5PJ4WUNJU6ZET42W5" address={this.state.address} addressIsValid={this.state.addressIsValid} hasEnoughXlm={this.state.hasEnoughXlm} canAcceptToken={this.state.canAcceptToken} meow={this.meow} />
                 </Tab>
