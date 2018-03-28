@@ -72,7 +72,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     </ul>
                 </li>
 
-                <li>Make sure that your Stellar account has enough XLM in it to support base fees.
+                <li>{this.props.hasEnoughXlm ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />} Make sure that your Stellar account has enough XLM in it to support base fees.
                     <ul>
                         {/* https://www.stellar.org/developers/guides/concepts/fees.html#minimum-account-balance */}
                         <li>Each additional XLM-based token you add as a trustline to your account requires .5 XLM.
