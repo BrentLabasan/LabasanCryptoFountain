@@ -115,9 +115,9 @@ export default class Fountain extends React.Component<IProps, IState>  {
 
     public render() {
         return <div>
-            <Tabs defaultActiveKey={3} id="uncontrolled-tab-example" animation={false}>
+            {/* <Tabs defaultActiveKey={3} id="uncontrolled-tab-example" animation={false}> */}
 
-            {/* <Tabs activeKey={this.state.key} onSelect={this.handleSelect} animation={false} id="controlled-tab-example"> */}
+            <Tabs activeKey={this.state.key} onSelect={this.handleSelect} animation={false} id="controlled-tab-example">
 
                 <Tab eventKey={1} title="SECOND">
                     <Instructions tokenName="SECOND" issuerAccountId="GAYZT6ZQCWRSUYUYKTTMX2BACITUQRXZPBXLY7H5PJ4WUNJU6ZET42W5" address={this.state.address} addressIsValid={this.state.addressIsValid} hasEnoughXlm={this.state.hasEnoughXlm} canAcceptToken={this.state.canAcceptToken} meow={this.meow} />
