@@ -1,20 +1,29 @@
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import * as StellarSdk from 'stellar-sdk';
-export interface Props {
+interface IProps {
     tokenName: string;
     issuerAccountId: string;
-    // enthusiasmLevel?: number;
+    address: string;
 }
 
-export default class Instructions extends React.Component<Props, {}> {
+interface IState {
+    address: string;
+}
 
-    constructor(props: Props) {
+export default class Instructions extends React.Component<IProps, IState> {
+
+    constructor(props: IProps) {
         super(props);
         // set initial state
+
+        this.state={address: this.props.address}
     }
 
-
+    
+    addressFieldChange = (e: React.FormEvent<HTMLInputElement>) => {
+        console.log(e.currentTarget.value)
+    }
 
     handleClick = () => {
         alert();
@@ -55,7 +64,7 @@ export default class Instructions extends React.Component<Props, {}> {
                 <li>Enter your Stellar account's public address/key into the form below and click Receive.
                     <ul>
                         <li>
-                            <input type="text" /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
+                            <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
                         </li>
                     </ul>
                 </li>
