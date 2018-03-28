@@ -48,9 +48,15 @@ export default class Fountain extends React.Component<IProps, IState>  {
                 .call().then(function (r) {
                     console.log(r);
                     console.log(typeof r);
-                    console.log((<any>this).r.id);
+                    console.log(Object.getOwnPropertyNames(r));
+                    // console.log(Object.getOwnPropertyNames(r).parse().balances);
+                    // console.log(JSON.parse(r.toString()));
 
-                    console.log(JSON.parse(r.toString()));
+                    console.log(JSON.stringify(r));
+
+                    console.log(JSON.parse(JSON.stringify(r)));
+
+                    console.log(JSON.parse(JSON.stringify(r)).id);
 
                     // let obj = JSON.parse(r);
                     // console.log(obj.id);
