@@ -8,6 +8,10 @@ export interface Props {
 }
 
 export default class Instructions extends React.Component<Props> {
+    handleClick = () => {
+        alert();
+    }
+
     public render() {
         return <div>
             <h1>Instructions To Receive {this.props.tokenName} Tokens</h1>
@@ -30,7 +34,7 @@ export default class Instructions extends React.Component<Props> {
                 <li>Enter your Stellar account's public address/key into the form below and click Receive.
                     <ul>
                         <li>
-<input type="text" /> <Button bsStyle="success">Receive</Button>
+<input type="text" /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button>
                         </li>
                     </ul>
                 </li>
