@@ -17,6 +17,7 @@ interface IProps extends IState {
 interface IState {
     address?: string;
     addressIsValid?: boolean;
+    hasEnoughXlm?: boolean;
 
 }
 
@@ -26,9 +27,10 @@ export default class Instructions extends React.Component<IProps, IState> {
         super(props);
         // set initial state
 
-        this.state = { 
+        this.state = {
             address: this.props.address,
-            addressIsValid: this.props.addressIsValid
+            addressIsValid: this.props.addressIsValid,
+            hasEnoughXlm: this.props.hasEnoughXlm
         }
     }
 
@@ -61,11 +63,11 @@ export default class Instructions extends React.Component<IProps, IState> {
         return <div>
             <h1>Instructions To Receive {this.props.tokenName} Tokens</h1>
             <ol>
-            <li>{this.props.addressIsValid ? <FontAwesome.MdCheckBox/> : <FontAwesome.MdCheckBoxOutlineBlank/> } Enter your Stellar account's public address/key into the form below to determine if your account is able to receive {this.props.tokenName} Tokens.
+                <li>{this.props.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />} Enter your Stellar account's public address/key into the form below to determine if your account is able to receive {this.props.tokenName} Tokens.
                     <ul>
                         <li>
                             {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
-                            <input type="text" onChange={this.addressFieldChange} value={this.props.address} /> 
+                            <input type="text" onChange={this.addressFieldChange} value={this.props.address} />
                         </li>
                     </ul>
                 </li>
