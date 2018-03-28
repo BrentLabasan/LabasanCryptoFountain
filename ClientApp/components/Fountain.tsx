@@ -79,14 +79,14 @@ export default class Fountain extends React.Component<IProps, IState>  {
                         // alert("less than 4.5");
                     }
 
-                    
+
                     // I moved this entire chunk from outter to inner. Not 100% sure if that was correct.
                     let canAcceptToken = false;
                     result.balances.forEach((b: any) => {
                         if (b.asset_code) {
                             // console.log("typeof b.asset_code", typeof b.asset_code);
                             console.log("compare balances accepted vs. tab's token", this.state.tokenName.toUpperCase(), b.asset_code.toUpperCase());
-                            if ( this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase() ) {
+                            if (this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase()) {
                                 canAcceptToken = true;
                                 // There's no built-in ability to break in forEach. https://stackoverflow.com/a/2641374
                             }
@@ -111,9 +111,44 @@ export default class Fountain extends React.Component<IProps, IState>  {
     }
 
     handleSelect = (key: any) => {
-        alert(`selected ${key}`);
-        this.setState({ key });
-      }
+        // alert(`selected ${key}`);
+
+        switch (key) {
+            case 1: {
+                this.setState({ key: key, tokenName: "SECOND" });
+                break;
+            }
+            case 2: {
+                this.setState({ key: key, tokenName: "MINUTE" });
+                break;
+            }
+            case 3: {
+                this.setState({ key: key, tokenName: "HOUR" });
+                break;
+            }
+            case 4: {
+                this.setState({ key: key, tokenName: "DAY" });
+                break;
+            }
+            case 5: {
+                this.setState({ key: key, tokenName: "WEEK" });
+                break;
+            }
+            case 6: {
+                this.setState({ key: key, tokenName: "MONTH" });
+                break;
+            }
+            case 7: {
+                this.setState({ key: key, tokenName: "YEAR" });
+                break;
+            }
+            default: {
+                //statements; 
+                break;
+            }
+        }
+
+    }
 
 
     public render() {
@@ -122,7 +157,7 @@ export default class Fountain extends React.Component<IProps, IState>  {
 
             <Tabs activeKey={this.state.key} onSelect={this.handleSelect} id="uncontrolled-tab-example" animation={false}>
 
-            {/* <Tabs activeKey={this.state.key} onSelect={this.handleSelect} animation={false} id="controlled-tab-example"> */}
+                {/* <Tabs activeKey={this.state.key} onSelect={this.handleSelect} animation={false} id="controlled-tab-example"> */}
 
                 <Tab eventKey={1} title="SECOND">
                     <Instructions tokenName="SECOND" issuerAccountId="GAYZT6ZQCWRSUYUYKTTMX2BACITUQRXZPBXLY7H5PJ4WUNJU6ZET42W5" address={this.state.address} addressIsValid={this.state.addressIsValid} hasEnoughXlm={this.state.hasEnoughXlm} canAcceptToken={this.state.canAcceptToken} meow={this.meow} />
