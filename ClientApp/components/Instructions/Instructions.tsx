@@ -126,14 +126,14 @@ export default class Instructions extends React.Component<IProps, IState> {
 
     }
 
-    componentWillMount() {
-        console.log("componentWillMount");
-        if (!this.state.address) {
-            if (localStorage.getItem("lastEnteredAddress")) {
-                this.setState({ address: localStorage.getItem("lastEnteredAddress") || "" });
-            }
-        }
-    }
+    // componentWillMount() {
+    //     console.log("componentWillMount");
+    //     if (!this.state.address) {
+    //         if (localStorage.getItem("lastEnteredAddress")) {
+    //             this.setState({ address: localStorage.getItem("lastEnteredAddress") || "" });
+    //         }
+    //     }
+    // }
 
     public render() {
 
