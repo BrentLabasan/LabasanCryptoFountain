@@ -71,6 +71,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     </ul>
                 </li>
             </ol>
+            this.state.address: {this.state.address}
         </div>;
     }
 }
