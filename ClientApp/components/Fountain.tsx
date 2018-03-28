@@ -64,8 +64,20 @@ export default class Fountain extends React.Component<IProps, IState>  {
                     } else {
                         this.setState({ hasEnoughXlm: false });
                         // alert("less than 4.5");
-
                     }
+
+                    let canAcceptToken = false;
+                    result.balances.forEach( (b) => {
+                        if ( this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase() ) {
+                            canAcceptToken = true;
+                        }
+                    });
+                    if (canAcceptToken) {
+
+                    } else {
+                        
+                    }
+
                 });
         } else {
             console.log("inv")
