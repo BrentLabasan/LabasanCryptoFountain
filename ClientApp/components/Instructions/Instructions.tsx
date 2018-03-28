@@ -140,7 +140,7 @@ export default class Instructions extends React.Component<IProps, IState> {
         let checkboxStep1 = this.state.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />;
         let checkboxStep2 = this.state.addressIsValid && this.state.hasEnoughXlm ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />;
         let checkboxStep3 = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />;
-        let checkboxStep4 = null;
+        let finalStep = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li> : <li><Button bsStyle="success" onClick={this.handleClick} disabled>Receive</Button></li>;
 
 
         return <div>
@@ -171,7 +171,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     </ul>
                 </li>
 
-                {this.props.addressIsValid && <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li>}
+                {finalStep}
 
             </ol>
             {/* this.state.address: {this.state.address} */}
