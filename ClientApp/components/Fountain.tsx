@@ -29,7 +29,7 @@ export default class Fountain extends React.Component<IProps, IState>  {
         super(props);
         // set initial state
         this.state = {
-            tokenName: "",
+            tokenName: "SECOND",
             issuerAccountId: "",
             address: "",
             addressIsValid: false,
@@ -70,12 +70,14 @@ export default class Fountain extends React.Component<IProps, IState>  {
                         result.balances.forEach((b: any) => {
                             if (b.asset_code) {
                                 // console.log("typeof b.asset_code", typeof b.asset_code);
-                                if (this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase()) {
+                                console.log(this.state.tokenName.toUpperCase(), b.asset_code.toUpperCase());
+                                if ( this.state.tokenName.toUpperCase() === b.asset_code.toUpperCase() ) {
                                     canAcceptToken = true;
                                     // There's no built-in ability to break in forEach. https://stackoverflow.com/a/2641374
                                 }
                             }
                         });
+                        console.log(canAcceptToken);
                         if (canAcceptToken) {
                             this.setState({ canAcceptToken: true });
                         } else {

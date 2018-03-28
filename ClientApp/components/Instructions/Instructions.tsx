@@ -63,8 +63,8 @@ export default class Instructions extends React.Component<IProps, IState> {
     public render() {
 
         let checkboxStep1 = this.props.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
-        let checkboxStep2 = null ;
-        let checkboxStep3 = null;
+        let checkboxStep2 = this.props.addressIsValid && this.props.hasEnoughXlm ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
+        let checkboxStep3 = this.props.addressIsValid && this.props.hasEnoughXlm && this.props.canAcceptToken ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
         let checkboxStep4 = null;
 
 
@@ -80,7 +80,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     </ul>
                 </li>
 
-                <li>{this.props.hasEnoughXlm ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />} Make sure that your Stellar account has enough XLM in it to support base fees.
+                <li>{checkboxStep2} Make sure that your Stellar account has enough XLM in it to support base fees.
                     <ul>
                         {/* https://www.stellar.org/developers/guides/concepts/fees.html#minimum-account-balance */}
                         <li>Each additional XLM-based token you add as a trustline to your account requires .5 XLM.
@@ -89,7 +89,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     </ul>
                 </li>
 
-                <li>Allow your Stellar account to accept {this.props.tokenName} tokens.
+                <li>{checkboxStep3} Allow your Stellar account to accept {this.props.tokenName} tokens.
                     <ul>
                         <li>Asset Code: {this.props.tokenName}</li>
                         <li>Issuer Account ID: {this.props.issuerAccountId}</li>
