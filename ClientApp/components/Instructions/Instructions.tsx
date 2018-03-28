@@ -11,7 +11,8 @@ interface IProps extends IState {
     addressIsValid?: boolean;
     canAcceptToken?: boolean;
 
-    meow: (address: string) => any;
+    // meow: (address: string) => any;
+    selectedToken: string;
 
 }
 
@@ -19,7 +20,7 @@ interface IState {
     address?: string;
     addressIsValid?: boolean;
     hasEnoughXlm?: boolean;
-
+    canAcceptToken?: boolean;
 }
 
 export default class Instructions extends React.Component<IProps, IState> {
@@ -31,15 +32,79 @@ export default class Instructions extends React.Component<IProps, IState> {
         this.state = {
             address: this.props.address,
             addressIsValid: this.props.addressIsValid,
-            hasEnoughXlm: this.props.hasEnoughXlm
+            hasEnoughXlm: this.props.hasEnoughXlm,
+            canAcceptToken: this.props.canAcceptToken
         }
     }
+
+    meow = (address: string) => {
+        // console.log(address);
+
+        if (StellarSdk.StrKey.isValidEd25519PublicKey(address)) {
+            this.setState({ addressIsValid: true });
+            // console.log("corr")
+            let server = new StellarSdk.Server('https://horizon.stellar.org');
+            server.accounts()
+                .accountId(address)
+                .call().then((r) => {
+                    console.log(r);
+
+                    // console.log(typeof r);
+                    // console.log(Object.getOwnPropertyNames(r));
+                    // console.log(JSON.stringify(r));
+                    // console.log(JSON.parse(JSON.stringify(r)));
+                    let result = JSON.parse(JSON.stringify(r));
+                    // console.log("result.id", result.id);
+                    // console.log("result.balances", result.balances);
+
+                    // alert(result.id);
+
+                    if (result.balances[result.balances.length - 1].balance >= 4.5) {
+                        this.setState({ hasEnoughXlm: true });
+                        // alert("more than 4.5");
+
+                    } else {
+                        this.setState({ hasEnoughXlm: false });
+                        // alert("less than 4.5");
+                    }
+
+
+                    // I moved this entire chunk from outter to inner. Not 100% sure if that was correct.
+                    let canAcceptToken = false;
+                    result.balances.forEach((b: any) => {
+                        if (b.asset_code) {
+                            // console.log("typeof b.asset_code", typeof b.asset_code);
+                            console.log("compare balances accepted vs. tab's token", this.props.selectedToken.toUpperCase(), b.asset_code.toUpperCase());
+                            if (this.props.selectedToken.toUpperCase() === b.asset_code.toUpperCase()) {
+                                canAcceptToken = true;
+                                // There's no built-in ability to break in forEach. https://stackoverflow.com/a/2641374
+                            }
+                        }
+                    });
+                    console.log(canAcceptToken);
+                    if (canAcceptToken) {
+                        this.setState({ canAcceptToken: true });
+                    } else {
+                        this.setState({ canAcceptToken: false });
+                    }
+
+
+
+                });
+        } else { // if query entered into field isn't a valid public key
+            console.log("query entered into field isn't a valid public key")
+            this.setState({ addressIsValid: false, hasEnoughXlm: false, canAcceptToken: false });
+        }
+
+        this.setState({ address: address });
+    }
+
 
 
     addressFieldChange = (e: React.FormEvent<HTMLInputElement>) => {
         // console.log(e.currentTarget.value)
         // this.setState({address: e.currentTarget.value});
-        this.props.meow(e.currentTarget.value.toUpperCase());
+        this.meow(e.currentTarget.value.toUpperCase());
 
     }
 
