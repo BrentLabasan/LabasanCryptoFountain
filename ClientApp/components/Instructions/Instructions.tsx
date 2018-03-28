@@ -127,9 +127,9 @@ export default class Instructions extends React.Component<IProps, IState> {
 
     public render() {
 
-        let checkboxStep1 = this.props.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
-        let checkboxStep2 = this.props.addressIsValid && this.props.hasEnoughXlm ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
-        let checkboxStep3 = this.props.addressIsValid && this.props.hasEnoughXlm && this.props.canAcceptToken ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
+        let checkboxStep1 = this.state.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
+        let checkboxStep2 = this.state.addressIsValid && this.state.hasEnoughXlm ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
+        let checkboxStep3 = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank /> ;
         let checkboxStep4 = null;
 
 
