@@ -17,11 +17,13 @@ export class NavMenu extends React.Component<{}, {}> {
                 <div className='clearfix'></div>
                 <div className='navbar-collapse collapse'>
                     <ul className='nav navbar-nav'>
-                        <li>
+
+                        {/* <li>
                             <NavLink exact to={ '/' } activeClassName='active'>
                                 <span className='glyphicon glyphicon-home'></span> Home
                             </NavLink>
-                        </li>
+                        </li> */}
+
                         <li>
                             <NavLink exact to={ '/fountain' } activeClassName='active'>
                                 <span className='glyphicon glyphicon-home'></span> Fountain
@@ -32,7 +34,8 @@ export class NavMenu extends React.Component<{}, {}> {
                                 <span className='glyphicon glyphicon-home'></span> About
                             </NavLink>
                         </li>
-                        <li>
+
+                        {/* <li>
                             <NavLink to={ '/counter' } activeClassName='active'>
                                 <span className='glyphicon glyphicon-education'></span> Counter
                             </NavLink>
@@ -41,7 +44,8 @@ export class NavMenu extends React.Component<{}, {}> {
                             <NavLink to={ '/fetchdata' } activeClassName='active'>
                                 <span className='glyphicon glyphicon-th-list'></span> Fetch data
                             </NavLink>
-                        </li>
+                        </li> */}
+
                     </ul>
                 </div>
             </div>
