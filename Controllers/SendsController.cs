@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -52,16 +53,19 @@ namespace TST_Fountain.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,TokenName,Amount")] Send send)
+        // [ValidateAntiForgeryToken]
+        public async Task<string> Create([Bind("ID,TokenName,Amount")] Send send)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(send);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return HtmlEncoder.Default.Encode($"SEND {send}");
+                // return RedirectToAction(nameof(Index));
             }
-            return View(send);
+            // return View(send);
+            return HtmlEncoder.Default.Encode($"INVALID {send.ID}, NumTimes is: {send.TokenName}");
+
         }
 
         // GET: Sends/Edit/5
