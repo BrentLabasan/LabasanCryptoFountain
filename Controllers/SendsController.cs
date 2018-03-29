@@ -11,6 +11,7 @@ using stellar_dotnetcore_sdk;
 using stellar_dotnetcore_sdk.requests;
 using stellar_dotnetcore_sdk.responses;
 using stellar_dotnetcore_sdk.responses.operations;
+using System.Diagnostics;
 
 namespace TST_Fountain.Controllers
 {
