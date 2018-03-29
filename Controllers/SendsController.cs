@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TST_Fountain.Models;
+using stellar_dotnetcore_sdk;
+using stellar_dotnetcore_sdk.requests;
+using stellar_dotnetcore_sdk.responses;
+using stellar_dotnetcore_sdk.responses.operations;
 
 namespace TST_Fountain.Controllers
 {
