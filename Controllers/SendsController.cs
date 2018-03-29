@@ -49,7 +49,7 @@ namespace TST_Fountain.Controllers
             return View(send);
         }
 
-                public async Task<IActionResult> Details2(int? id)
+        public async Task<IActionResult> Details2(int? id)
         {
             if (id == null)
             {
@@ -79,6 +79,22 @@ namespace TST_Fountain.Controllers
         // [ValidateAntiForgeryToken]
         public async Task<string> Create([Bind("ID,TokenName,Amount")] Send send)
         {
+            if (send.Address == send.TokenName)
+            {
+                ModelState.AddModelError("LastName", "The last name cannot be the same as the first name.");
+            }
+
+            string[] tokenNames = { "XLM", "SECOND", "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR", "MASLOW1", "MASLOW2", "MASLOW3", "MASLOW4", "MASLOW5" };
+            if ( !(tokenNames.Contains(send.TokenName)) )
+            {
+                ModelState.AddModelError("LastName", "The last name cannot be the same as the first name.");
+            }
+
+            if ( !(send.Amount > 0) )
+            {
+                ModelState.AddModelError("SendAmount", "The amount sent has to be a positive integer.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(send);

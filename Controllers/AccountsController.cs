@@ -52,9 +52,10 @@ namespace TST_Fountain.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,TotalSentSecond,TotalSentMinute,TotalSentHour,TotalSentDay,TotalSentWeek,TotalSentMonth,TotalSentYear")] Account account)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(account);
