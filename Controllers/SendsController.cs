@@ -21,6 +21,7 @@ namespace TST_Fountain.Controllers
         public SendsController(TST_FountainContext context)
         {
             _context = context;
+
         }
 
         // GET: Sends
@@ -31,6 +32,23 @@ namespace TST_Fountain.Controllers
 
         // GET: Sends/Details/5
         public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var send = await _context.Send
+                .SingleOrDefaultAsync(m => m.ID == id);
+            if (send == null)
+            {
+                return NotFound();
+            }
+
+            return View(send);
+        }
+
+                public async Task<IActionResult> Details2(int? id)
         {
             if (id == null)
             {
@@ -155,6 +173,33 @@ namespace TST_Fountain.Controllers
         private bool SendExists(int id)
         {
             return _context.Send.Any(e => e.ID == id);
+        }
+
+        [HttpPost]
+        public async Task ShowAccountTransactions()
+        {
+            Network.UseTestNetwork();
+            var server = new Server("https://horizon-testnet.stellar.org");
+
+
+            Console.WriteLine("-- Show Account Transactions (ForAccount) --");
+
+            var transactions = await server.Transactions
+                .ForAccount(KeyPair.FromAccountId("GAZHWW2NBPDVJ6PEEOZ2X43QV5JUDYS3XN4OWOTBR6WUACTUML2CCJLI"))
+                .Execute();
+
+            ShowTransactionRecords(transactions.Records);
+            Console.WriteLine();
+        }
+
+        private static void ShowTransactionRecords(List<TransactionResponse> transactions)
+        {
+            foreach (var tran in transactions)
+                ShowTransactionRecord(tran);
+        }
+        private static void ShowTransactionRecord(TransactionResponse tran)
+        {
+            Console.WriteLine($"Ledger: {tran.Ledger}, Hash: {tran.Hash}, Fee Paid: {tran.FeePaid}");
         }
     }
 }
