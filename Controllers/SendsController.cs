@@ -12,6 +12,7 @@ using stellar_dotnetcore_sdk.requests;
 using stellar_dotnetcore_sdk.responses;
 using stellar_dotnetcore_sdk.responses.operations;
 using System.Diagnostics;
+using System.Net.Http;
 
 namespace TST_Fountain.Controllers
 {
@@ -110,8 +111,9 @@ namespace TST_Fountain.Controllers
 
             Network.UsePublicNetwork();
             var server = new Server("https://horizon.stellar.org");
+            stellar_dotnetcore_sdk.requests.AccountsRequestBuilder(new HttpClient(), "https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC").Account("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC");
 
-            var transaction = new stellar_dotnetcore_sdk.Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId("GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5"), stellar_dotnetcore_sdk.Transaction.Builder.getSequeceNumber()))
+            var transaction = new stellar_dotnetcore_sdk.Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId("GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5"), stellar_dotnetcore_sdk.requests.AccountsRequestBuilder))
                 // this operation funds the new account with XLM
                 .addOperation(stellar_dotnetcore_sdk.requests.PaymentsRequestBuilder({
 
