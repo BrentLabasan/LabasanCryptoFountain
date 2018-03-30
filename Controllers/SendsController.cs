@@ -79,10 +79,22 @@ namespace TST_Fountain.Controllers
         // [ValidateAntiForgeryToken]
         public async Task<string> Create([Bind("ID,Address,TokenName,Amount")] Send send)
         {
-            string str = Environment.GetEnvironmentVariable("brenttest", EnvironmentVariableTarget.User);
+            // string str = Environment.GetEnvironmentVariable("brenttest", EnvironmentVariableTarget.User);
 
-            string x = Environment.GetEnvironmentVariable("LANG");
-            string y = Environment.GetEnvironmentVariable("LANG", EnvironmentVariableTarget.User);
+
+            string x = Environment.GetEnvironmentVariable("LANG"); // use this, not Environment.GetEnvironmentVariable("LANG", EnvironmentVariableTarget.User)
+
+            // string a1 = Environment.GetEnvironmentVariable("Drake3");
+            // string a2 = Environment.GetEnvironmentVariable("Drake3", EnvironmentVariableTarget.Machine);
+            // string a3 = Environment.GetEnvironmentVariable("Drake3", EnvironmentVariableTarget.Process);
+            // string a4 = Environment.GetEnvironmentVariable("Drake3", EnvironmentVariableTarget.User);
+
+            string a1 = Environment.GetEnvironmentVariable("drake1");
+            string a2 = Environment.GetEnvironmentVariable("Weeknd100");
+            string a3 = Environment.GetEnvironmentVariable("brenttest");
+            string a4 = Environment.GetEnvironmentVariable("SECRET_KEY_SECOND");
+
+            string z = Environment.GetEnvironmentVariable("DESKTOP_STARTUP_ID"); // use this, not Environment.GetEnvironmentVariable("LANG", EnvironmentVariableTarget.User)
 
             Console.WriteLine("AYY");
             send.Address = send.Address.ToUpper();
@@ -110,13 +122,14 @@ namespace TST_Fountain.Controllers
             {
                 _context.Add(send);
                 await _context.SaveChangesAsync();
-                return HtmlEncoder.Default.Encode($"SendsController POST CREATE 1 {str} 2 {x} 3 {y}");
+                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {z} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
                 // return RedirectToAction(nameof(Index));
             }
             // return View(send);
             return HtmlEncoder.Default.Encode($"INVALID {send.ID}, NumTimes is: {send.TokenName}");
 
         }
+        
 
         // GET: Sends/Edit/5
         public async Task<IActionResult> Edit(int? id)
