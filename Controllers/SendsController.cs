@@ -110,10 +110,31 @@ namespace TST_Fountain.Controllers
 
             Network.UsePublicNetwork();
             var server = new Server("https://horizon.stellar.org");
-            // server.Payments.
+
+            var transaction = new stellar_dotnetcore_sdk.Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId("GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5"), stellar_dotnetcore_sdk.Transaction.Builder.getSequeceNumber()))
+                // this operation funds the new account with XLM
+                .addOperation(stellar_dotnetcore_sdk.requests.PaymentsRequestBuilder({
+
+                })
+                }))
+
+            // KeyPair source = KeyPair.fromSecretSeed("SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4");
+            // KeyPair destination = KeyPair.fromAccountId("GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5");
+
+            // var transactions = await server.Transactions
+            //     .ForAccount(KeyPair.FromAccountId("GAZHWW2NBPDVJ6PEEOZ2X43QV5JUDYS3XN4OWOTBR6WUACTUML2CCJLI"))
+            //     .Execute();
+
+            // var x = await server.Payments
+            //     .ForAccount(KeyPair.FromAccountId("GAZHWW2NBPDVJ6PEEOZ2X43QV5JUDYS3XN4OWOTBR6WUACTUML2CCJLI"))
+            //     .Execute();
+
+
 
             if (ModelState.IsValid)
             {
+                // var transactionCallBuilder = await server.Transactions.ForAccount(stellar_dotnetcore_sdk.KeyPair.FromAccountId(send.Address)).Execute();
+
                 _context.Add(send);
                 await _context.SaveChangesAsync();
                 return HtmlEncoder.Default.Encode($"SendsController POST CREATE {z} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
