@@ -135,11 +135,10 @@ namespace TST_Fountain.Controllers
                 var transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber));
                 
                 var at = new AssetTypeCreditAlphaNum(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)) );
-                var po = new PaymentOperation.Builder(KeyPair.FromAccountId(send.Address), at, Convert.ToString(send.Amount));
-                transaction.AddOperation();
+                var po = new PaymentOperation.Builder(KeyPair.FromAccountId(send.Address), at, Convert.ToString(send.Amount)).Build();
+                transaction.AddOperation(po).Build();
                 // transaction.AddMemo();
-                // var transactionCallBuilder = await server.Transactions.ForAccount(stellar_dotnetcore_sdk.KeyPair.FromAccountId(send.Address)).Execute();
-
+                transaction.Sign(KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_" + send.TokenName)));
                 _context.Add(send);
                 await _context.SaveChangesAsync();
                 return HtmlEncoder.Default.Encode($"SendsController POST CREATE {accountResponse.SequenceNumber} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
