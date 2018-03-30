@@ -132,7 +132,11 @@ namespace TST_Fountain.Controllers
                 var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
 
                 var sendingAccount = new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber);
-                var transaction = new Transaction.Builder(sendingAccount);
+                var transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber));
+                
+                var po = new PaymentOperation.Builder(send.Address, send.TokenName, Convert.ToString(send.Amount));
+                transaction.AddOperation();
+                // transaction.AddMemo();
                 // var transactionCallBuilder = await server.Transactions.ForAccount(stellar_dotnetcore_sdk.KeyPair.FromAccountId(send.Address)).Execute();
 
                 _context.Add(send);
