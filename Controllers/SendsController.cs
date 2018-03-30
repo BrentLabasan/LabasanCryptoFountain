@@ -111,14 +111,20 @@ namespace TST_Fountain.Controllers
 
             Network.UsePublicNetwork();
             var server = new Server("https://horizon.stellar.org");
-            stellar_dotnetcore_sdk.requests.AccountsRequestBuilder(new HttpClient(), "https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC").Account("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC");
+            // (new HttpClient(), "https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC").Account("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC")
 
-            var transaction = new stellar_dotnetcore_sdk.Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId("GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5"), stellar_dotnetcore_sdk.requests.AccountsRequestBuilder))
-                // this operation funds the new account with XLM
-                .addOperation(stellar_dotnetcore_sdk.requests.PaymentsRequestBuilder({
 
-                })
-                }))
+            AccountsRequestBuilder ARB = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
+            // var accountResponse = ARB.AccountsRequestBuilder.Account(new Uri("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC", UriKind.Absolute));
+            var resp = await ARB.Account(new Uri("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
+
+
+            // var transaction = new stellar_dotnetcore_sdk.Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId("GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5"), stellar_dotnetcore_sdk.requests.AccountsRequestBuilder))
+            //     // this operation funds the new account with XLM
+            //     .addOperation(stellar_dotnetcore_sdk.requests.PaymentsRequestBuilder({
+
+            // })
+            //     }))
 
             // KeyPair source = KeyPair.fromSecretSeed("SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4");
             // KeyPair destination = KeyPair.fromAccountId("GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5");
@@ -139,7 +145,7 @@ namespace TST_Fountain.Controllers
 
                 _context.Add(send);
                 await _context.SaveChangesAsync();
-                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {z} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
+                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {resp.SequenceNumber} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
                 // return RedirectToAction(nameof(Index));
             }
             // return View(send);
@@ -148,116 +154,116 @@ namespace TST_Fountain.Controllers
         }
 
 
-        // GET: Sends/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+// GET: Sends/Edit/5
+public async Task<IActionResult> Edit(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+    var send = await _context.Send.SingleOrDefaultAsync(m => m.ID == id);
+    if (send == null)
+    {
+        return NotFound();
+    }
+    return View(send);
+}
+
+// POST: Sends/Edit/5
+// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(int id, [Bind("ID,TokenName,Amount")] Send send)
+{
+    if (id != send.ID)
+    {
+        return NotFound();
+    }
+
+    if (ModelState.IsValid)
+    {
+        try
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var send = await _context.Send.SingleOrDefaultAsync(m => m.ID == id);
-            if (send == null)
-            {
-                return NotFound();
-            }
-            return View(send);
-        }
-
-        // POST: Sends/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,TokenName,Amount")] Send send)
-        {
-            if (id != send.ID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(send);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SendExists(send.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(send);
-        }
-
-        // GET: Sends/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var send = await _context.Send
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (send == null)
-            {
-                return NotFound();
-            }
-
-            return View(send);
-        }
-
-        // POST: Sends/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var send = await _context.Send.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Send.Remove(send);
+            _context.Update(send);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
-
-        private bool SendExists(int id)
+        catch (DbUpdateConcurrencyException)
         {
-            return _context.Send.Any(e => e.ID == id);
+            if (!SendExists(send.ID))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
         }
+        return RedirectToAction(nameof(Index));
+    }
+    return View(send);
+}
 
-        [HttpPost]
-        public async Task ShowAccountTransactions()
-        {
-            Network.UsePublicNetwork();
-            var server = new Server("https://horizon.stellar.org");
+// GET: Sends/Delete/5
+public async Task<IActionResult> Delete(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+    var send = await _context.Send
+        .SingleOrDefaultAsync(m => m.ID == id);
+    if (send == null)
+    {
+        return NotFound();
+    }
+
+    return View(send);
+}
+
+// POST: Sends/Delete/5
+[HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    var send = await _context.Send.SingleOrDefaultAsync(m => m.ID == id);
+    _context.Send.Remove(send);
+    await _context.SaveChangesAsync();
+    return RedirectToAction(nameof(Index));
+}
+
+private bool SendExists(int id)
+{
+    return _context.Send.Any(e => e.ID == id);
+}
+
+[HttpPost]
+public async Task ShowAccountTransactions()
+{
+    Network.UsePublicNetwork();
+    var server = new Server("https://horizon.stellar.org");
 
 
-            Console.WriteLine("-- Show Account Transactions (ForAccount) --");
+    Console.WriteLine("-- Show Account Transactions (ForAccount) --");
 
-            var transactions = await server.Transactions
-                .ForAccount(KeyPair.FromAccountId("GAZHWW2NBPDVJ6PEEOZ2X43QV5JUDYS3XN4OWOTBR6WUACTUML2CCJLI"))
-                .Execute();
+    var transactions = await server.Transactions
+        .ForAccount(KeyPair.FromAccountId("GAZHWW2NBPDVJ6PEEOZ2X43QV5JUDYS3XN4OWOTBR6WUACTUML2CCJLI"))
+        .Execute();
 
-            ShowTransactionRecords(transactions.Records);
-            Console.WriteLine();
-        }
+    ShowTransactionRecords(transactions.Records);
+    Console.WriteLine();
+}
 
-        private static void ShowTransactionRecords(List<TransactionResponse> transactions)
-        {
-            foreach (var tran in transactions)
-                ShowTransactionRecord(tran);
-        }
-        private static void ShowTransactionRecord(TransactionResponse tran)
-        {
-            Console.WriteLine($"Ledger: {tran.Ledger}, Hash: {tran.Hash}, Fee Paid: {tran.FeePaid}");
-        }
+private static void ShowTransactionRecords(List<TransactionResponse> transactions)
+{
+    foreach (var tran in transactions)
+        ShowTransactionRecord(tran);
+}
+private static void ShowTransactionRecord(TransactionResponse tran)
+{
+    Console.WriteLine($"Ledger: {tran.Ledger}, Hash: {tran.Hash}, Fee Paid: {tran.FeePaid}");
+}
     }
 }
