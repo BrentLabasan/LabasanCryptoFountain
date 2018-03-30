@@ -83,7 +83,7 @@ namespace TST_Fountain.Controllers
             send.Address = send.Address.ToUpper();
             send.TokenName = send.TokenName.ToUpper();
 
-            if (send.Address[0] == 'G' || send.Address.Length != 56)
+            if (send.Address[0] != 'G' || send.Address.Length != 56)
             {
                 ModelState.AddModelError("Address", "Address is not in a proper format (begins with a G and is 56 characters long");
             }
@@ -127,9 +127,10 @@ namespace TST_Fountain.Controllers
                 Network.UsePublicNetwork();
                 var server = new Server("https://horizon.stellar.org");
 
-                AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
+                AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + send.Address));
                 var accReceiving = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + send.Address));
 
+                
                 // var transactionCallBuilder = await server.Transactions.ForAccount(stellar_dotnetcore_sdk.KeyPair.FromAccountId(send.Address)).Execute();
 
                 _context.Add(send);
@@ -138,7 +139,7 @@ namespace TST_Fountain.Controllers
                 // return RedirectToAction(nameof(Index));
             }
             // return View(send);
-            return HtmlEncoder.Default.Encode($"INVALID {send.ID}, NumTimes is: {send.TokenName}");
+            return HtmlEncoder.Default.Encode($"INVALID {send.ID}, {send.TokenName}");
 
         }
 
