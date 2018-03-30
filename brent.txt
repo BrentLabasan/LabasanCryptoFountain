@@ -1,3 +1,5 @@
+
+
 create a migration to update the database:
 dotnet ef migrations add <name>
 
@@ -10,6 +12,7 @@ dotnet ef database update CreateIdentitySchema
 This will run the Down methods of any migrations
  newer than the migration you specify.
 
+delete TSF_Fountain.db
 If you need to completely erase the database and start over, run 
 dotnet ef database drop 
 followed by 

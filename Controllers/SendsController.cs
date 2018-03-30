@@ -79,7 +79,12 @@ namespace TST_Fountain.Controllers
         // [ValidateAntiForgeryToken]
         public async Task<string> Create([Bind("ID,Address,TokenName,Amount")] Send send)
         {
-            Console.WriteLine(Environment.GetEnvironmentVariable("brenttest"));
+            string str = Environment.GetEnvironmentVariable("brenttest", EnvironmentVariableTarget.User);
+
+            string x = Environment.GetEnvironmentVariable("LANG");
+            string y = Environment.GetEnvironmentVariable("LANG", EnvironmentVariableTarget.User);
+
+            Console.WriteLine("AYY");
             send.Address = send.Address.ToUpper();
             // if (send.Address[0] == 'G')
             // {
@@ -105,7 +110,7 @@ namespace TST_Fountain.Controllers
             {
                 _context.Add(send);
                 await _context.SaveChangesAsync();
-                return HtmlEncoder.Default.Encode($"SEND {send}");
+                return HtmlEncoder.Default.Encode($"SendsController POST CREATE 1 {str} 2 {x} 3 {y}");
                 // return RedirectToAction(nameof(Index));
             }
             // return View(send);
