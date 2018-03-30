@@ -79,25 +79,19 @@ namespace TST_Fountain.Controllers
         // [ValidateAntiForgeryToken]
         public async Task<string> Create([Bind("ID,Address,TokenName,Amount")] Send send)
         {
-            // string str = Environment.GetEnvironmentVariable("brenttest", EnvironmentVariableTarget.User);
-
-
             string x = Environment.GetEnvironmentVariable("LANG"); // use this, not Environment.GetEnvironmentVariable("LANG", EnvironmentVariableTarget.User)
-
-            // string a1 = Environment.GetEnvironmentVariable("Drake3");
-            // string a2 = Environment.GetEnvironmentVariable("Drake3", EnvironmentVariableTarget.Machine);
-            // string a3 = Environment.GetEnvironmentVariable("Drake3", EnvironmentVariableTarget.Process);
-            // string a4 = Environment.GetEnvironmentVariable("Drake3", EnvironmentVariableTarget.User);
 
             string a1 = Environment.GetEnvironmentVariable("drake1");
             string a2 = Environment.GetEnvironmentVariable("Weeknd100");
             string a3 = Environment.GetEnvironmentVariable("brenttest");
             string a4 = Environment.GetEnvironmentVariable("SECRET_KEY_SECOND");
 
-            string z = Environment.GetEnvironmentVariable("DESKTOP_STARTUP_ID"); // use this, not Environment.GetEnvironmentVariable("LANG", EnvironmentVariableTarget.User)
+            // Console.WriteLine("AYY");
 
-            Console.WriteLine("AYY");
             send.Address = send.Address.ToUpper();
+            send.TokenName = send.TokenName.ToUpper();
+
+
             // if (send.Address[0] == 'G')
             // {
             //     ModelState.AddModelError("LastName", "The last name cannot be the same as the first name.");
@@ -129,7 +123,7 @@ namespace TST_Fountain.Controllers
             return HtmlEncoder.Default.Encode($"INVALID {send.ID}, NumTimes is: {send.TokenName}");
 
         }
-        
+
 
         // GET: Sends/Edit/5
         public async Task<IActionResult> Edit(int? id)

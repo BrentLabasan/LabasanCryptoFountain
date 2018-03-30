@@ -18,3 +18,8 @@ dotnet ef database drop
 followed by 
 dotnet ef database update 
 to re-scaffold the database and bring it up to the current migration.
+
+
+
+
+SUCCESS GOT ENVIRONMENT VARIABLES PRINTING | sudo nano ~/.bashrc       and then restart comp
