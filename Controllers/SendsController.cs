@@ -104,14 +104,6 @@ namespace TST_Fountain.Controllers
             string a3 = Environment.GetEnvironmentVariable("brenttest");
             string a4 = Environment.GetEnvironmentVariable("SECRET_KEY_SECOND");
 
-            Network.UsePublicNetwork();
-            var server = new Server("https://horizon.stellar.org");
-
-            AccountsRequestBuilder ARB = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
-            // var accountResponse = ARB.AccountsRequestBuilder.Account(new Uri("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC", UriKind.Absolute));
-            var resp = await ARB.Account(new Uri("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
-
-
             // var transaction = new stellar_dotnetcore_sdk.Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId("GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5"), stellar_dotnetcore_sdk.requests.AccountsRequestBuilder))
             //     // this operation funds the new account with XLM
             //     .addOperation(stellar_dotnetcore_sdk.requests.PaymentsRequestBuilder({
@@ -130,15 +122,19 @@ namespace TST_Fountain.Controllers
             //     .ForAccount(KeyPair.FromAccountId("GAZHWW2NBPDVJ6PEEOZ2X43QV5JUDYS3XN4OWOTBR6WUACTUML2CCJLI"))
             //     .Execute();
 
-
-
             if (ModelState.IsValid)
             {
+                Network.UsePublicNetwork();
+                var server = new Server("https://horizon.stellar.org");
+
+                AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
+                var accReceiving = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + send.Address));
+
                 // var transactionCallBuilder = await server.Transactions.ForAccount(stellar_dotnetcore_sdk.KeyPair.FromAccountId(send.Address)).Execute();
 
                 _context.Add(send);
                 await _context.SaveChangesAsync();
-                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {resp.SequenceNumber} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
+                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {accReceiving.SequenceNumber} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
                 // return RedirectToAction(nameof(Index));
             }
             // return View(send);
