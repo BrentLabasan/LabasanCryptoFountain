@@ -134,7 +134,8 @@ namespace TST_Fountain.Controllers
                 var sendingAccount = new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber);
                 var transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber));
                 
-                var po = new PaymentOperation.Builder(send.Address, send.TokenName, Convert.ToString(send.Amount));
+                var at = new AssetTypeCreditAlphaNum(send.TokenName, KeyPair.FromAccountId(TODO) );
+                var po = new PaymentOperation.Builder(KeyPair.FromAccountId(send.Address), at, Convert.ToString(send.Amount));
                 transaction.AddOperation();
                 // transaction.AddMemo();
                 // var transactionCallBuilder = await server.Transactions.ForAccount(stellar_dotnetcore_sdk.KeyPair.FromAccountId(send.Address)).Execute();
