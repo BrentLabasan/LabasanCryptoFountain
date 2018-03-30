@@ -126,16 +126,18 @@ namespace TST_Fountain.Controllers
             {
                 Network.UsePublicNetwork();
                 var server = new Server("https://horizon.stellar.org");
+                var sendingAccountPubKey = Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName);
 
-                AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName)));
-                var accountSending = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName)));
+                AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
+                var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
 
-                
+                var sendingAccount = new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber);
+                var transaction = new Transaction.Builder(sendingAccount);
                 // var transactionCallBuilder = await server.Transactions.ForAccount(stellar_dotnetcore_sdk.KeyPair.FromAccountId(send.Address)).Execute();
 
                 _context.Add(send);
                 await _context.SaveChangesAsync();
-                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {accountSending.SequenceNumber} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
+                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {accountResponse.SequenceNumber} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
                 // return RedirectToAction(nameof(Index));
             }
             // return View(send);
