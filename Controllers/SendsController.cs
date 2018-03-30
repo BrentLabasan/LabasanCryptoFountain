@@ -80,23 +80,13 @@ namespace TST_Fountain.Controllers
         // [ValidateAntiForgeryToken]
         public async Task<string> Create([Bind("ID,Address,TokenName,Amount")] Send send)
         {
-            string x = Environment.GetEnvironmentVariable("LANG"); // use this, not Environment.GetEnvironmentVariable("LANG", EnvironmentVariableTarget.User)
-
-            string a1 = Environment.GetEnvironmentVariable("drake1");
-            string a2 = Environment.GetEnvironmentVariable("Weeknd100");
-            string a3 = Environment.GetEnvironmentVariable("brenttest");
-            string a4 = Environment.GetEnvironmentVariable("SECRET_KEY_SECOND");
-
-            // Console.WriteLine("AYY");
-
             send.Address = send.Address.ToUpper();
             send.TokenName = send.TokenName.ToUpper();
 
-
-            // if (send.Address[0] == 'G')
-            // {
-            //     ModelState.AddModelError("LastName", "The last name cannot be the same as the first name.");
-            // }
+            if (send.Address[0] == 'G' || send.Address.Length != 56)
+            {
+                ModelState.AddModelError("Address", "Address is not in a proper format (begins with a G and is 56 characters long");
+            }
 
             string[] tokenNames = { "XLM", "SECOND", "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR", "MASLOW1", "MASLOW2", "MASLOW3", "MASLOW4", "MASLOW5" };
             if (!(tokenNames.Contains(send.TokenName)))
@@ -109,10 +99,13 @@ namespace TST_Fountain.Controllers
                 ModelState.AddModelError("Amount", "The amount sent has to be a positive integer.");
             }
 
+            string a1 = Environment.GetEnvironmentVariable("drake1");
+            string a2 = Environment.GetEnvironmentVariable("Weeknd100");
+            string a3 = Environment.GetEnvironmentVariable("brenttest");
+            string a4 = Environment.GetEnvironmentVariable("SECRET_KEY_SECOND");
+
             Network.UsePublicNetwork();
             var server = new Server("https://horizon.stellar.org");
-            // (new HttpClient(), "https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC").Account("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC")
-
 
             AccountsRequestBuilder ARB = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
             // var accountResponse = ARB.AccountsRequestBuilder.Account(new Uri("https://horizon.stellar.org/accounts/GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC", UriKind.Absolute));
@@ -154,116 +147,116 @@ namespace TST_Fountain.Controllers
         }
 
 
-// GET: Sends/Edit/5
-public async Task<IActionResult> Edit(int? id)
-{
-    if (id == null)
-    {
-        return NotFound();
-    }
-
-    var send = await _context.Send.SingleOrDefaultAsync(m => m.ID == id);
-    if (send == null)
-    {
-        return NotFound();
-    }
-    return View(send);
-}
-
-// POST: Sends/Edit/5
-// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Edit(int id, [Bind("ID,TokenName,Amount")] Send send)
-{
-    if (id != send.ID)
-    {
-        return NotFound();
-    }
-
-    if (ModelState.IsValid)
-    {
-        try
+        // GET: Sends/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            _context.Update(send);
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!SendExists(send.ID))
+            if (id == null)
             {
                 return NotFound();
             }
-            else
+
+            var send = await _context.Send.SingleOrDefaultAsync(m => m.ID == id);
+            if (send == null)
             {
-                throw;
+                return NotFound();
             }
+            return View(send);
         }
-        return RedirectToAction(nameof(Index));
-    }
-    return View(send);
-}
 
-// GET: Sends/Delete/5
-public async Task<IActionResult> Delete(int? id)
-{
-    if (id == null)
-    {
-        return NotFound();
-    }
+        // POST: Sends/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ID,TokenName,Amount")] Send send)
+        {
+            if (id != send.ID)
+            {
+                return NotFound();
+            }
 
-    var send = await _context.Send
-        .SingleOrDefaultAsync(m => m.ID == id);
-    if (send == null)
-    {
-        return NotFound();
-    }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(send);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SendExists(send.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(send);
+        }
 
-    return View(send);
-}
+        // GET: Sends/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-// POST: Sends/Delete/5
-[HttpPost, ActionName("Delete")]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> DeleteConfirmed(int id)
-{
-    var send = await _context.Send.SingleOrDefaultAsync(m => m.ID == id);
-    _context.Send.Remove(send);
-    await _context.SaveChangesAsync();
-    return RedirectToAction(nameof(Index));
-}
+            var send = await _context.Send
+                .SingleOrDefaultAsync(m => m.ID == id);
+            if (send == null)
+            {
+                return NotFound();
+            }
 
-private bool SendExists(int id)
-{
-    return _context.Send.Any(e => e.ID == id);
-}
+            return View(send);
+        }
 
-[HttpPost]
-public async Task ShowAccountTransactions()
-{
-    Network.UsePublicNetwork();
-    var server = new Server("https://horizon.stellar.org");
+        // POST: Sends/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var send = await _context.Send.SingleOrDefaultAsync(m => m.ID == id);
+            _context.Send.Remove(send);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool SendExists(int id)
+        {
+            return _context.Send.Any(e => e.ID == id);
+        }
+
+        [HttpPost]
+        public async Task ShowAccountTransactions()
+        {
+            Network.UsePublicNetwork();
+            var server = new Server("https://horizon.stellar.org");
 
 
-    Console.WriteLine("-- Show Account Transactions (ForAccount) --");
+            Console.WriteLine("-- Show Account Transactions (ForAccount) --");
 
-    var transactions = await server.Transactions
-        .ForAccount(KeyPair.FromAccountId("GAZHWW2NBPDVJ6PEEOZ2X43QV5JUDYS3XN4OWOTBR6WUACTUML2CCJLI"))
-        .Execute();
+            var transactions = await server.Transactions
+                .ForAccount(KeyPair.FromAccountId("GAZHWW2NBPDVJ6PEEOZ2X43QV5JUDYS3XN4OWOTBR6WUACTUML2CCJLI"))
+                .Execute();
 
-    ShowTransactionRecords(transactions.Records);
-    Console.WriteLine();
-}
+            ShowTransactionRecords(transactions.Records);
+            Console.WriteLine();
+        }
 
-private static void ShowTransactionRecords(List<TransactionResponse> transactions)
-{
-    foreach (var tran in transactions)
-        ShowTransactionRecord(tran);
-}
-private static void ShowTransactionRecord(TransactionResponse tran)
-{
-    Console.WriteLine($"Ledger: {tran.Ledger}, Hash: {tran.Hash}, Fee Paid: {tran.FeePaid}");
-}
+        private static void ShowTransactionRecords(List<TransactionResponse> transactions)
+        {
+            foreach (var tran in transactions)
+                ShowTransactionRecord(tran);
+        }
+        private static void ShowTransactionRecord(TransactionResponse tran)
+        {
+            Console.WriteLine($"Ledger: {tran.Ledger}, Hash: {tran.Hash}, Fee Paid: {tran.FeePaid}");
+        }
     }
 }
