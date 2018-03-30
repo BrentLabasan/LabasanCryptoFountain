@@ -10,8 +10,8 @@ using TST_Fountain.Models;
 namespace TST_Fountain.Migrations
 {
     [DbContext(typeof(TST_FountainContext))]
-    [Migration("20180328221959_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20180330012337_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,9 @@ namespace TST_Fountain.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address")
+                        .IsRequired();
 
                     b.Property<decimal>("TotalSentDay");
 
@@ -48,9 +51,13 @@ namespace TST_Fountain.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Address")
+                        .IsRequired();
+
                     b.Property<decimal>("Amount");
 
-                    b.Property<string>("TokenName");
+                    b.Property<string>("TokenName")
+                        .IsRequired();
 
                     b.HasKey("ID");
 

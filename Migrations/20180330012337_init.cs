@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace TST_Fountain.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,6 +14,7 @@ namespace TST_Fountain.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Address = table.Column<string>(nullable: false),
                     TotalSentDay = table.Column<decimal>(nullable: false),
                     TotalSentHour = table.Column<decimal>(nullable: false),
                     TotalSentMinute = table.Column<decimal>(nullable: false),
@@ -33,8 +34,9 @@ namespace TST_Fountain.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Address = table.Column<string>(nullable: false),
                     Amount = table.Column<decimal>(nullable: false),
-                    TokenName = table.Column<string>(nullable: true)
+                    TokenName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

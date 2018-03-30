@@ -23,6 +23,9 @@ namespace TST_Fountain.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Address")
+                        .IsRequired();
+
                     b.Property<decimal>("TotalSentDay");
 
                     b.Property<decimal>("TotalSentHour");
@@ -47,9 +50,13 @@ namespace TST_Fountain.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Address")
+                        .IsRequired();
+
                     b.Property<decimal>("Amount");
 
-                    b.Property<string>("TokenName");
+                    b.Property<string>("TokenName")
+                        .IsRequired();
 
                     b.HasKey("ID");
 

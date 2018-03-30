@@ -77,23 +77,29 @@ namespace TST_Fountain.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         // [ValidateAntiForgeryToken]
-        public async Task<string> Create([Bind("ID,TokenName,Amount")] Send send)
+        public async Task<string> Create([Bind("ID,Address,TokenName,Amount")] Send send)
         {
-            if (send.Address == send.TokenName)
-            {
-                ModelState.AddModelError("LastName", "The last name cannot be the same as the first name.");
-            }
+            Console.WriteLine(Environment.GetEnvironmentVariable("brenttest"));
+            send.Address = send.Address.ToUpper();
+            // if (send.Address[0] == 'G')
+            // {
+            //     ModelState.AddModelError("LastName", "The last name cannot be the same as the first name.");
+            // }
 
             string[] tokenNames = { "XLM", "SECOND", "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR", "MASLOW1", "MASLOW2", "MASLOW3", "MASLOW4", "MASLOW5" };
-            if ( !(tokenNames.Contains(send.TokenName)) )
+            if (!(tokenNames.Contains(send.TokenName)))
             {
-                ModelState.AddModelError("LastName", "The last name cannot be the same as the first name.");
+                ModelState.AddModelError("TokenName", "Token is not supported.");
             }
 
-            if ( !(send.Amount > 0) )
+            if (!(send.Amount > 0))
             {
-                ModelState.AddModelError("SendAmount", "The amount sent has to be a positive integer.");
+                ModelState.AddModelError("Amount", "The amount sent has to be a positive integer.");
             }
+
+            Network.UsePublicNetwork();
+            var server = new Server("https://horizon.stellar.org");
+            // server.Payments.
 
             if (ModelState.IsValid)
             {
@@ -195,8 +201,8 @@ namespace TST_Fountain.Controllers
         [HttpPost]
         public async Task ShowAccountTransactions()
         {
-            Network.UseTestNetwork();
-            var server = new Server("https://horizon-testnet.stellar.org");
+            Network.UsePublicNetwork();
+            var server = new Server("https://horizon.stellar.org");
 
 
             Console.WriteLine("-- Show Account Transactions (ForAccount) --");
