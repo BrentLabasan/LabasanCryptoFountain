@@ -154,7 +154,7 @@ namespace TST_Fountain.Controllers
 
                 // /*
 
-                KeyPair source = KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_SECOND"));
+                KeyPair source = KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_" + send.TokenName));
                 KeyPair destination = KeyPair.FromAccountId(send.Address);
 
                 await server.Accounts.Account(destination);
