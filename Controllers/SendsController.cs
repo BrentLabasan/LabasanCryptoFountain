@@ -164,7 +164,7 @@ namespace TST_Fountain.Controllers
                 AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
                 var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
 
-                var tst = new AssetTypeCreditAlphaNum(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
+                var tst = new AssetTypeCreditAlphaNum12(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
 
                 Transaction transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber))
                         .AddOperation(new PaymentOperation.Builder(destination, tst, "1").Build())
