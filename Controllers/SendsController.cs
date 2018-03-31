@@ -126,7 +126,7 @@ namespace TST_Fountain.Controllers
             {
                 Network.UsePublicNetwork();
                 var server = new Server("https://horizon.stellar.org");
-                ///* 
+                /* 
 
                 var sendingAccountPubKey = Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName);
 
@@ -138,41 +138,34 @@ namespace TST_Fountain.Controllers
 
                 var at = new AssetTypeCreditAlphaNum(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
                 var po = new PaymentOperation.Builder(KeyPair.FromAccountId(send.Address), at, Convert.ToString(send.Amount)).Build();
-                transaction.AddOperation(po).Build();
+                transaction
+                .AddOperation(po)
+                .Build();
                 // transaction.AddMemo();
 
-                var be = KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_" + send.TokenName));
-                // transaction.Sign(be);
+                transaction.Sign(source);
                 // transaction.
 
                 _context.Add(send);
                 await _context.SaveChangesAsync();
                 return HtmlEncoder.Default.Encode($"SendsController POST CREATE {accountResponse.SequenceNumber} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
                 // return RedirectToAction(nameof(Index));
-                //*/
-
-                /*
-                var source = KeyPair.FromAccountId(Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName));
-                var destination = KeyPair.FromAccountId(send.Address);
-
-                AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + source));
-                var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + source));
-                var sequenceNumber = accountResponse.SequenceNumber;
-
-                var account = new stellar_dotnetcore_sdk.Account(source, sequenceNumber);
-                var transaction = new Transaction.Builder(account)
-                    .AddOperation(new CreateAccountOperation.Builder(destination, "1").Build())
-                    .Build();
-
-                transaction.Sign(source);
-                
-                // server.Transactions()
-                
-                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {accountResponse.SequenceNumber} 1 {source} 2 {a2} 3 {a3} 4 {a4}");
                 */
 
+                // /*
+
+                KeyPair source = KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_SECOND"));
+                KeyPair destination = KeyPair.FromAccountId(send.Address);
+
+                await server.Accounts.Account(destination);
+
+                AccountResponse sourceAccount = await server.Accounts.Account(source);
 
 
+
+                // */
+
+                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {source.SequenceNumber} 1 {source} 2 {a2} 3 {a3} 4 {a4}");
             }
             // return View(send);
             return HtmlEncoder.Default.Encode($"INVALID {send.ID}, {send.TokenName}");
