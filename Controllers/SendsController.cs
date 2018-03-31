@@ -124,6 +124,7 @@ namespace TST_Fountain.Controllers
 
             if (ModelState.IsValid)
             {
+                /* 
                 Network.UsePublicNetwork();
                 var server = new Server("https://horizon.stellar.org");
                 var sendingAccountPubKey = Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName);
@@ -138,11 +139,29 @@ namespace TST_Fountain.Controllers
                 var po = new PaymentOperation.Builder(KeyPair.FromAccountId(send.Address), at, Convert.ToString(send.Amount)).Build();
                 transaction.AddOperation(po).Build();
                 // transaction.AddMemo();
-                transaction.Sign(KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_" + send.TokenName)));
+                transaction.(KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_" + send.TokenName)));
                 _context.Add(send);
                 await _context.SaveChangesAsync();
                 return HtmlEncoder.Default.Encode($"SendsController POST CREATE {accountResponse.SequenceNumber} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
                 // return RedirectToAction(nameof(Index));
+                */
+
+                var source = KeyPair.FromAccountId(Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName));
+                var destination = KeyPair.FromAccountId(send.Address);
+
+                AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + source));
+                var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + source));
+                var sequenceNumber = 2908908335136768L;
+                
+                var account = new stellar_dotnetcore_sdk.Account(source, sequenceNumber);
+                var transaction = new Transaction.Builder(account)
+                    .AddOperation(new CreateAccountOperation.Builder(destination, "1").Build())
+                    .Build();
+
+                transaction.Sign(source);
+
+
+
             }
             // return View(send);
             return HtmlEncoder.Default.Encode($"INVALID {send.ID}, {send.TokenName}");
