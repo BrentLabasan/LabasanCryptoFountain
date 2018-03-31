@@ -160,19 +160,40 @@ namespace TST_Fountain.Controllers
                 await server.Accounts.Account(destination);
 
                 AccountResponse sourceAccount = await server.Accounts.Account(source);
+                var sendingAccountPubKey = Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName);
+                AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
+                var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
 
-                Transaction transaction = new Transaction.Builder(sourceAccount)
-                        .addOperation(new PaymentOperation.Builder(destination, new AssetTypeNative(), "10").Build())
+                Transaction transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber))
+                        .AddOperation(new PaymentOperation.Builder(destination, new AssetTypeNative(), "10").Build())
                         // A memo allows you to add your own metadata to a transaction. It's
                         // optional and does not affect how Stellar treats the transaction.
-                        .addMemo(Memo.Text("Test Transaction"))
-                        .build();
+                        .AddMemo(Memo.Text("Test Transaction"))
+                        .Build();
                 // Sign the transaction to prove you are actually the person sending it.
                 transaction.Sign(source);
 
+                string status = "";
+                try
+                {
+                    SubmitTransactionResponse response = await server.SubmitTransaction(transaction);
+                    // System.out.println("Success!");
+                    // System.out.println(response);
+                    status += "Success!";
+                }
+                catch (Exception e)
+                {
+                    // System.out.println("Something went wrong!");
+                    // System.out.println(e.getMessage());
+                    status += "ERROR" + e.Message;
+                    // If the result is unknown (no response body, timeout etc.) we simply resubmit
+                    // already built transaction:
+                    // SubmitTransactionResponse response = server.submitTransaction(transaction);
+                }
+
                 // */
 
-                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {source.SequenceNumber} 1 {source} 2 {a2} 3 {a3} 4 {a4}");
+                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {status} 1 {source} 2 {a2} 3 {a3} 4 {a4}");
             }
             // return View(send);
             return HtmlEncoder.Default.Encode($"INVALID {send.ID}, {send.TokenName}");
