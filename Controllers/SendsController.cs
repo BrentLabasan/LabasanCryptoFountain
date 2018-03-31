@@ -161,7 +161,14 @@ namespace TST_Fountain.Controllers
 
                 AccountResponse sourceAccount = await server.Accounts.Account(source);
 
-
+                Transaction transaction = new Transaction.Builder(sourceAccount)
+                        .addOperation(new PaymentOperation.Builder(destination, new AssetTypeNative(), "10").Build())
+                        // A memo allows you to add your own metadata to a transaction. It's
+                        // optional and does not affect how Stellar treats the transaction.
+                        .addMemo(Memo.Text("Test Transaction"))
+                        .build();
+                // Sign the transaction to prove you are actually the person sending it.
+                transaction.Sign(source);
 
                 // */
 
