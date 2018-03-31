@@ -164,8 +164,10 @@ namespace TST_Fountain.Controllers
                 AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
                 var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
 
+                var tst = new AssetTypeCreditAlphaNum(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
+
                 Transaction transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber))
-                        .AddOperation(new PaymentOperation.Builder(destination, new AssetTypeNative(), "10").Build())
+                        .AddOperation(new PaymentOperation.Builder(destination, tst, "1").Build())
                         // A memo allows you to add your own metadata to a transaction. It's
                         // optional and does not affect how Stellar treats the transaction.
                         .AddMemo(Memo.Text("Test Transaction"))
