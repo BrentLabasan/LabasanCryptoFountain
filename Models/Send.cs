@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace TST_Fountain.Models
+namespace LabasanCryptoFountain.Models
 {
     public class Send
     {

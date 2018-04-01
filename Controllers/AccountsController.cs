@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TST_Fountain.Models;
+using LabasanCryptoFountain.Models;
 
-namespace TST_Fountain.Controllers
+namespace LabasanCryptoFountain.Controllers
 {
     public class AccountsController : Controller
     {
-        private readonly TST_FountainContext _context;
+        private readonly LabasanCryptoFountainContext _context;
 
-        public AccountsController(TST_FountainContext context)
+        public AccountsController(LabasanCryptoFountainContext context)
         {
             _context = context;
         }

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TST_Fountain.Migrations
+namespace LabasanCryptoFountain.Migrations
 {
     public partial class init : Migration
     {

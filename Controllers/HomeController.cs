@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TST_Fountain.Controllers
+namespace LabasanCryptoFountain.Controllers
 {
     public class HomeController : Controller
     {

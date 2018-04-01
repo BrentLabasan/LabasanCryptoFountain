@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
-using TST_Fountain.Models;
+using LabasanCryptoFountain.Models;
 
-namespace TST_Fountain.Migrations
+namespace LabasanCryptoFountain.Migrations
 {
-    [DbContext(typeof(TST_FountainContext))]
+    [DbContext(typeof(LabasanCryptoFountainContext))]
     [Migration("20180330012337_init")]
     partial class init
     {
@@ -19,7 +19,7 @@ namespace TST_Fountain.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011");
 
-            modelBuilder.Entity("TST_Fountain.Models.Account", b =>
+            modelBuilder.Entity("LabasanCryptoFountain.Models.Account", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -46,7 +46,7 @@ namespace TST_Fountain.Migrations
                     b.ToTable("Account");
                 });
 
-            modelBuilder.Entity("TST_Fountain.Models.Send", b =>
+            modelBuilder.Entity("LabasanCryptoFountain.Models.Send", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();

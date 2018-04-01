@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TST_Fountain.Models;
+using LabasanCryptoFountain.Models;
 using stellar_dotnetcore_sdk;
 using stellar_dotnetcore_sdk.requests;
 using stellar_dotnetcore_sdk.responses;
@@ -14,13 +14,13 @@ using stellar_dotnetcore_sdk.responses.operations;
 using System.Diagnostics;
 using System.Net.Http;
 
-namespace TST_Fountain.Controllers
+namespace LabasanCryptoFountain.Controllers
 {
     public class SendsController : Controller
     {
-        private readonly TST_FountainContext _context;
+        private readonly LabasanCryptoFountainContext _context;
 
-        public SendsController(TST_FountainContext context)
+        public SendsController(LabasanCryptoFountainContext context)
         {
             _context = context;
 

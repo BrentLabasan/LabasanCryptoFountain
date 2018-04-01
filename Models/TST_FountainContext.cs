@@ -1,16 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace TST_Fountain.Models
+namespace LabasanCryptoFountain.Models
 {
-    public class TST_FountainContext : DbContext
+    public class LabasanCryptoFountainContext : DbContext
     {
-        public TST_FountainContext(DbContextOptions<TST_FountainContext> options)
+        public LabasanCryptoFountainContext(DbContextOptions<LabasanCryptoFountainContext> options)
             : base(options)
         {
         }
 
-        public DbSet<TST_Fountain.Models.Account> Account { get; set; }
-        public DbSet<TST_Fountain.Models.Send> Send { get; set; }
+        public DbSet<LabasanCryptoFountain.Models.Account> Account { get; set; }
+        public DbSet<LabasanCryptoFountain.Models.Send> Send { get; set; }
 
     }
 }
