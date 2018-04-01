@@ -4,6 +4,8 @@ import * as StellarSdk from 'stellar-sdk';
 
 import * as FontAwesome from 'react-icons/lib/md'
 
+import * as jquery from 'jquery';
+
 interface IProps extends IState {
     tokenName: string;
     issuerAccountId: string;
