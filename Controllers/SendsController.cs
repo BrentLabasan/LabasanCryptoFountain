@@ -99,11 +99,6 @@ namespace TST_Fountain.Controllers
                 ModelState.AddModelError("Amount", "The amount sent has to be a positive integer.");
             }
 
-            string a1 = Environment.GetEnvironmentVariable("drake1");
-            string a2 = Environment.GetEnvironmentVariable("Weeknd100");
-            string a3 = Environment.GetEnvironmentVariable("brenttest");
-            string a4 = Environment.GetEnvironmentVariable("SECRET_KEY_SECOND");
-
             if (ModelState.IsValid)
             {
                 Network.UsePublicNetwork();
@@ -119,7 +114,19 @@ namespace TST_Fountain.Controllers
                 AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
                 var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
 
-                var tst = new AssetTypeCreditAlphaNum12(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
+                Asset tst ;
+                if (send.TokenName == "XLM")
+                {
+                    // TODO implement this in the future
+                    tst = new AssetTypeNative(); // https://elucidsoft.github.io/dotnet-stellar-sdk/api/stellar_dotnetcore_sdk.AssetTypeNative.html
+                }
+                else if (send.TokenName.Length <= 4) {
+                    tst = new AssetTypeCreditAlphaNum4(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
+                }
+                else
+                {
+                    tst = new AssetTypeCreditAlphaNum12(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
+                }
 
                 Transaction transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber))
                         .AddOperation(new PaymentOperation.Builder(destination, tst, Convert.ToString(send.Amount)).Build())
@@ -150,7 +157,7 @@ namespace TST_Fountain.Controllers
 
                 // */
 
-                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {status} 1 {source} 2 {a2} 3 {a3} 4 {a4}");
+                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {status} 1 {source} 2  3  4 ");
             }
             // return View(send);
             return HtmlEncoder.Default.Encode($"INVALID {send.ID}, {send.TokenName}");
