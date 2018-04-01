@@ -114,18 +114,12 @@ export default class Instructions extends React.Component<IProps, IState> {
 
     handleClick = () => {
         alert();
-        let server = new StellarSdk.Server('https://horizon.stellar.org');
+        // let server = new StellarSdk.Server('https://horizon.stellar.org');
 
-        // server.transactions()
-        // .forAccount('GASOCNHNNLYFNMDJYQ3XFMI7BYHIOCFW3GJEOWRPEGK2TDPGTG2E5EDW')
-        // .call().then(function(r){ console.log(r); });
-
-        server.accounts()
-            .accountId("GB4P2YXKH3IYUKCBEATQ75EX7BOPWC6HPABUZVW7UNODXKH6AVWDIL3D")
-            .call().then(function (r) { console.log(r); });
-
-        // server.accounts
-        // console.log(server.accounts().accountId("GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
+        jquery.post( "/sends/create", { Address: this.state.address, TokenName: this.props.tokenName, Amount: 2 })
+        .done(function( data ) {
+          alert( "Data Loaded: " + data );
+        });
 
     }
 
