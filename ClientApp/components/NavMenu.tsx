@@ -23,20 +23,20 @@ export class NavMenu extends React.Component<{}, {}> {
                 <div className='navbar-collapse collapse'>
                     <ul className='nav navbar-nav'>
 
-                        {/* <li>
+                        <li>
                             <NavLink exact to={ '/' } activeClassName='active'>
                                 <span className='glyphicon glyphicon-home'></span> Home
                             </NavLink>
-                        </li> */}
+                        </li>
 
                         <li>
                             <NavLink exact to={ '/fountain' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> Fountain
+                                <span className='glyphicon glyphicon-usd'></span> Fountain
                             </NavLink>
                         </li>
                         <li>
                             <NavLink exact to={ '/about' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> About
+                                <span className='glyphicon glyphicon-ok'></span> About
                             </NavLink>
                         </li>
 
