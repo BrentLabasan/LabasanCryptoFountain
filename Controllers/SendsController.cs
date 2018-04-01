@@ -104,55 +104,10 @@ namespace TST_Fountain.Controllers
             string a3 = Environment.GetEnvironmentVariable("brenttest");
             string a4 = Environment.GetEnvironmentVariable("SECRET_KEY_SECOND");
 
-            // var transaction = new stellar_dotnetcore_sdk.Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId("GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5"), stellar_dotnetcore_sdk.requests.AccountsRequestBuilder))
-            //     // this operation funds the new account with XLM
-            //     .addOperation(stellar_dotnetcore_sdk.requests.PaymentsRequestBuilder({
-
-            // })
-            //     }))
-
-            // KeyPair source = KeyPair.fromSecretSeed("SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4");
-            // KeyPair destination = KeyPair.fromAccountId("GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5");
-
-            // var transactions = await server.Transactions
-            //     .ForAccount(KeyPair.FromAccountId("GAZHWW2NBPDVJ6PEEOZ2X43QV5JUDYS3XN4OWOTBR6WUACTUML2CCJLI"))
-            //     .Execute();
-
-            // var x = await server.Payments
-            //     .ForAccount(KeyPair.FromAccountId("GAZHWW2NBPDVJ6PEEOZ2X43QV5JUDYS3XN4OWOTBR6WUACTUML2CCJLI"))
-            //     .Execute();
-
             if (ModelState.IsValid)
             {
                 Network.UsePublicNetwork();
                 var server = new Server("https://horizon.stellar.org");
-                /* 
-
-                var sendingAccountPubKey = Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName);
-
-                AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
-                var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
-
-                var sendingAccount = new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber);
-                var transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber));
-
-                var at = new AssetTypeCreditAlphaNum(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
-                var po = new PaymentOperation.Builder(KeyPair.FromAccountId(send.Address), at, Convert.ToString(send.Amount)).Build();
-                transaction
-                .AddOperation(po)
-                .Build();
-                // transaction.AddMemo();
-
-                transaction.Sign(source);
-                // transaction.
-
-                _context.Add(send);
-                await _context.SaveChangesAsync();
-                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {accountResponse.SequenceNumber} 1 {a1} 2 {a2} 3 {a3} 4 {a4}");
-                // return RedirectToAction(nameof(Index));
-                */
-
-                // /*
 
                 KeyPair source = KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_" + send.TokenName));
                 KeyPair destination = KeyPair.FromAccountId(send.Address);
