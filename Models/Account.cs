@@ -1,10 +1,14 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace TST_Fountain.Models
+namespace LabasanCryptoFountain.Models
 {
     public class Account
     {
         public int ID { get; set; }
+
+        [Required]
+        public string Address { get; set; }
         public decimal TotalSentSecond { get; set; }
         public decimal TotalSentMinute { get; set; }
 

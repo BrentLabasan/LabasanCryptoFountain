@@ -1,0 +1,42 @@
+
+
+create a migration to update the database:
+dotnet ef migrations add <name>
+
+The final step after creating one (or more) migrations is to actually 
+apply them to the database: 
+dotnet ef database update 
+This command will cause Entity Framework Core to create the Items table in the database. 
+If you want to roll back the database, you can provide the name of the previous migration: 
+dotnet ef database update CreateIdentitySchema 
+This will run the Down methods of any migrations
+ newer than the migration you specify.
+
+delete TSF_Fountain.db
+If you need to completely erase the database and start over, run 
+dotnet ef database drop 
+followed by 
+dotnet ef database update 
+to re-scaffold the database and bring it up to the current migration.
+
+
+
+
+SUCCESS GOT ENVIRONMENT VARIABLES PRINTING | sudo nano ~/.bashrc       and then restart comp
+
+
+
+
+
+
+
+        // server.transactions()
+        // .forAccount('GASOCNHNNLYFNMDJYQ3XFMI7BYHIOCFW3GJEOWRPEGK2TDPGTG2E5EDW')
+        // .call().then(function(r){ console.log(r); });
+
+        // server.accounts()
+        //     .accountId("GB4P2YXKH3IYUKCBEATQ75EX7BOPWC6HPABUZVW7UNODXKH6AVWDIL3D")
+        //     .call().then(function (r) { console.log(r); });
+
+        // server.accounts
+        // console.log(server.accounts().accountId("GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));

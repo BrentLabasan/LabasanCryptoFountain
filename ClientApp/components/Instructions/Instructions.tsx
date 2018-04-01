@@ -4,6 +4,8 @@ import * as StellarSdk from 'stellar-sdk';
 
 import * as FontAwesome from 'react-icons/lib/md'
 
+import * as jquery from 'jquery';
+
 interface IProps extends IState {
     tokenName: string;
     issuerAccountId: string;
@@ -40,6 +42,7 @@ export default class Instructions extends React.Component<IProps, IState> {
     meow = (address: string) => {
         // console.log(address);
 
+        // Step 1: Ensure public address/key is valid.
         if (StellarSdk.StrKey.isValidEd25519PublicKey(address)) {
             this.setState({ addressIsValid: true });
             localStorage.setItem('lastEnteredAddress', address);
@@ -59,7 +62,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     // console.log("result.balances", result.balances);
 
                     // alert(result.id);
-
+                    // Step 2:  Ensure account has at least 4.5 XLM to cover base fee.s
                     if (result.balances[result.balances.length - 1].balance >= 4.5) {
                         this.setState({ hasEnoughXlm: true });
                         // alert("more than 4.5");
@@ -70,7 +73,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     }
 
 
-                    // I moved this entire chunk from outter to inner. Not 100% sure if that was correct.
+                    // Step 3: Ensure account can accept asset. 
                     let canAcceptToken = false;
                     result.balances.forEach((b: any) => {
                         if (b.asset_code) {
@@ -111,18 +114,12 @@ export default class Instructions extends React.Component<IProps, IState> {
 
     handleClick = () => {
         alert();
-        let server = new StellarSdk.Server('https://horizon.stellar.org');
+        // let server = new StellarSdk.Server('https://horizon.stellar.org');
 
-        // server.transactions()
-        // .forAccount('GASOCNHNNLYFNMDJYQ3XFMI7BYHIOCFW3GJEOWRPEGK2TDPGTG2E5EDW')
-        // .call().then(function(r){ console.log(r); });
-
-        server.accounts()
-            .accountId("GB4P2YXKH3IYUKCBEATQ75EX7BOPWC6HPABUZVW7UNODXKH6AVWDIL3D")
-            .call().then(function (r) { console.log(r); });
-
-        // server.accounts
-        // console.log(server.accounts().accountId("GAQ4HHIYU6BQEMUBFIJA7QMXSNHNQDGPD45D4HAWGLWJWBAMUWJ6BOSC"));
+        jquery.post( "/sends/create", { Address: this.state.address, TokenName: this.props.tokenName, Amount: 2 })
+        .done(function( data ) {
+          alert( "Data Loaded: " + data );
+        });
 
     }
 

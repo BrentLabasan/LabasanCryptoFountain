@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/TST_Fountain.csproj"
+                "${workspaceFolder}/LabasanCryptoFountain.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
