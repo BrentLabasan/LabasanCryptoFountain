@@ -12,7 +12,12 @@ export class NavMenu extends React.Component<{}, {}> {
                         <span className='icon-bar'></span>
                         <span className='icon-bar'></span>
                     </button>
-                    <Link className='navbar-brand' to={ '/' }>Time Saved Token Fountain</Link>
+                    <Link className='navbar-brand' style={{height: 85}} to={ '/' }>
+                    LABASAN <br/>
+                    CRYPTO <br/>
+                    FOUNTAIN <br/>
+                    {/* LABASAN.CRYPTO.FOUNTAIN */}
+                    </Link>
                 </div>
                 <div className='clearfix'></div>
                 <div className='navbar-collapse collapse'>
