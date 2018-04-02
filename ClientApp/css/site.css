@@ -23,6 +23,7 @@
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
     body {
         padding-top: 50px;
+        font-family: 'Varela Round', sans-serif;
     }
 }
 
@@ -63,4 +64,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+}
+
+body {
+    font-family: Tahoma, 'Varela Round', sans-serif;
 }
