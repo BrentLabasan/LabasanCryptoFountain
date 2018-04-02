@@ -62,7 +62,8 @@ module.exports = (env) => {
                 manifest: require('./ClientApp/dist/vendor-manifest.json'),
                 sourceType: 'commonjs2',
                 name: './vendor'
-            })
+            }),
+            new webpack.IgnorePlugin(/vertx/)
         ],
         output: {
             libraryTarget: 'commonjs',
