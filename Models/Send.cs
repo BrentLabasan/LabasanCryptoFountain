@@ -15,5 +15,13 @@ namespace LabasanCryptoFountain.Models
 
         [Required]
         public decimal Amount { get; set; }
+        [Required]
+        public string Source { get; set; }
+        [Required]
+        public string Destination { get; set; }
+        [Required]
+        public DateTimeOffset sendStart { get; set; }
+        [Required]
+        public DateTimeOffset sendEnd { get; set; }
     }
 }

@@ -25,6 +25,5 @@ namespace LabasanCryptoFountain.Models
         public decimal TotalSentMaslow3 { get; set; }
         public decimal TotalSentMaslow4 { get; set; }
         public decimal TotalSentMaslow5 { get; set; }
-
     }
 }
