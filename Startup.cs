@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using LabasanCryptoFountain.Models;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace LabasanCryptoFountain
 {
@@ -44,6 +45,10 @@ namespace LabasanCryptoFountain
             }
             else
             {
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
                 app.UseExceptionHandler("/Home/Error");
             }
 
