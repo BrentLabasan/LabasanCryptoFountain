@@ -80,10 +80,10 @@ namespace LabasanCryptoFountain.Controllers
         // [ValidateAntiForgeryToken]
         public async Task<string> Create([Bind("ID,Address,TokenName,Amount")] Send send)
         {
-            send.Address = send.Address.ToUpper();
+            send.Destination = send.Destination.ToUpper();
             send.TokenName = send.TokenName.ToUpper();
 
-            if (send.Address[0] != 'G' || send.Address.Length != 56)
+            if (send.Destination[0] != 'G' || send.Destination.Length != 56)
             {
                 ModelState.AddModelError("Address", "Address is not in a proper format (begins with a G and is 56 characters long");
             }
@@ -105,7 +105,7 @@ namespace LabasanCryptoFountain.Controllers
                 var server = new Server("https://horizon.stellar.org");
 
                 KeyPair source = KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_" + send.TokenName));
-                KeyPair destination = KeyPair.FromAccountId(send.Address);
+                KeyPair destination = KeyPair.FromAccountId(send.Destination);
 
                 await server.Accounts.Account(destination);
 
