@@ -78,7 +78,7 @@ namespace LabasanCryptoFountain.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         // [ValidateAntiForgeryToken]
-        public async Task<string> Create([Bind("ID,Address,TokenName,Amount")] Send send)
+        public async Task<string> Create([Bind("ID,TokenName,Amount,Source,Destination,sendStart,sendEnd")] Send send)
         {
             send.Destination = send.Destination.ToUpper();
             send.TokenName = send.TokenName.ToUpper();
@@ -94,71 +94,80 @@ namespace LabasanCryptoFountain.Controllers
                 ModelState.AddModelError("TokenName", "Token is not supported.");
             }
 
+
             if (!(send.Amount > 0))
             {
                 ModelState.AddModelError("Amount", "The amount sent has to be a positive integer.");
             }
 
-            if (ModelState.IsValid)
+
+            Network.UsePublicNetwork();
+            var server = new Server("https://horizon.stellar.org");
+
+            KeyPair source = KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_" + send.TokenName));
+            KeyPair destination = KeyPair.FromAccountId(send.Destination);
+
+            send.Source = Environment.GetEnvironmentVariable("SECRET_KEY_" + send.TokenName);
+
+            await server.Accounts.Account(destination);
+
+            AccountResponse sourceAccount = await server.Accounts.Account(source);
+            var sendingAccountPubKey = Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName);
+            AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
+            var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
+
+            Asset tst;
+            if (send.TokenName == "XLM")
             {
-                Network.UsePublicNetwork();
-                var server = new Server("https://horizon.stellar.org");
+                // TODO implement this in the future
+                tst = new AssetTypeNative(); // https://elucidsoft.github.io/dotnet-stellar-sdk/api/stellar_dotnetcore_sdk.AssetTypeNative.html
+            }
+            else if (send.TokenName.Length <= 4)
+            {
+                tst = new AssetTypeCreditAlphaNum4(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
+            }
+            else
+            {
+                tst = new AssetTypeCreditAlphaNum12(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
+            }
 
-                KeyPair source = KeyPair.FromSecretSeed(Environment.GetEnvironmentVariable("SECRET_KEY_" + send.TokenName));
-                KeyPair destination = KeyPair.FromAccountId(send.Destination);
+            Transaction transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber))
+                    .AddOperation(new PaymentOperation.Builder(destination, tst, Convert.ToString(send.Amount)).Build())
+                    // A memo allows you to add your own metadata to a transaction. It's
+                    // optional and does not affect how Stellar treats the transaction.
+                    .AddMemo(Memo.Text("Test Transaction"))
+                    .Build();
+            // Sign the transaction to prove you are actually the person sending it.
+            transaction.Sign(source);
 
-                await server.Accounts.Account(destination);
-
-                AccountResponse sourceAccount = await server.Accounts.Account(source);
-                var sendingAccountPubKey = Environment.GetEnvironmentVariable("PUBLIC_KEY_" + send.TokenName);
-                AccountsRequestBuilder accReqBuilder = new AccountsRequestBuilder(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
-                var accountResponse = await accReqBuilder.Account(new Uri("https://horizon.stellar.org/accounts/" + sendingAccountPubKey));
-
-                Asset tst ;
-                if (send.TokenName == "XLM")
-                {
-                    // TODO implement this in the future
-                    tst = new AssetTypeNative(); // https://elucidsoft.github.io/dotnet-stellar-sdk/api/stellar_dotnetcore_sdk.AssetTypeNative.html
-                }
-                else if (send.TokenName.Length <= 4) {
-                    tst = new AssetTypeCreditAlphaNum4(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
-                }
-                else
-                {
-                    tst = new AssetTypeCreditAlphaNum12(send.TokenName, KeyPair.FromAccountId(Environment.GetEnvironmentVariable("ISSUER_KEY_" + send.TokenName)));
-                }
-
-                Transaction transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber))
-                        .AddOperation(new PaymentOperation.Builder(destination, tst, Convert.ToString(send.Amount)).Build())
-                        // A memo allows you to add your own metadata to a transaction. It's
-                        // optional and does not affect how Stellar treats the transaction.
-                        .AddMemo(Memo.Text("Test Transaction"))
-                        .Build();
-                // Sign the transaction to prove you are actually the person sending it.
-                transaction.Sign(source);
-
-                string status = "";
-                try
+            string status = "";
+            try
+            {
+                if (ModelState.IsValid)
                 {
                     SubmitTransactionResponse response = await server.SubmitTransaction(transaction);
                     // System.out.println("Success!");
                     // System.out.println(response);
                     status += "Success!";
-                }
-                catch (Exception e)
-                {
-                    // System.out.println("Something went wrong!");
-                    // System.out.println(e.getMessage());
-                    status += "ERROR" + e.Message;
-                    // If the result is unknown (no response body, timeout etc.) we simply resubmit
-                    // already built transaction:
-                    // SubmitTransactionResponse response = server.submitTransaction(transaction);
+
+                    return HtmlEncoder.Default.Encode($"SendsController POST CREATE {status} 1 {source} 2  3  4 ");
+
                 }
 
-                // */
-
-                return HtmlEncoder.Default.Encode($"SendsController POST CREATE {status} 1 {source} 2  3  4 ");
             }
+            catch (Exception e)
+            {
+                // System.out.println("Something went wrong!");
+                // System.out.println(e.getMessage());
+                status += "ERROR" + e.Message;
+                // If the result is unknown (no response body, timeout etc.) we simply resubmit
+                // already built transaction:
+                // SubmitTransactionResponse response = server.submitTransaction(transaction);
+            }
+
+            // */
+
+
             // return View(send);
             return HtmlEncoder.Default.Encode($"INVALID {send.ID}, {send.TokenName}");
 

@@ -113,13 +113,19 @@ export default class Instructions extends React.Component<IProps, IState> {
     }
 
     handleClick = () => {
-        alert();
+        // alert();
         // let server = new StellarSdk.Server('https://horizon.stellar.org');
 
-        jquery.post( "/sends/create", { Address: this.state.address, TokenName: this.props.tokenName, Amount: 2 })
-        .done(function( data ) {
-          alert( "Data Loaded: " + data );
-        });
+        jquery.post("/sends/create", {
+            Source: "dummy data",
+            Destination: this.state.address,
+            TokenName: this.props.tokenName,
+            Amount: 2,
+            // sendStart: new Date()
+        })
+            .done(function (data) {
+                alert("Data Loaded: " + data);
+            });
 
     }
 
@@ -147,7 +153,7 @@ export default class Instructions extends React.Component<IProps, IState> {
                     <ul>
                         <li>
                             {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
-                            <input style={{width: 600}} placeholder="example: GCDMFH3RSZR3FLBHSUYPLF2XAG5TWZQDHNX5XG4UELVXICNBESDFMXTJ" type="text" onChange={this.addressFieldChange} value={this.state.address} />
+                            <input style={{ width: 600 }} placeholder="example: GCDMFH3RSZR3FLBHSUYPLF2XAG5TWZQDHNX5XG4UELVXICNBESDFMXTJ" type="text" onChange={this.addressFieldChange} value={this.state.address} />
                         </li>
                     </ul>
                 </li>

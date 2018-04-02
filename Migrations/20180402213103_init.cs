@@ -17,10 +17,16 @@ namespace LabasanCryptoFountain.Migrations
                     Address = table.Column<string>(nullable: false),
                     TotalSentDay = table.Column<decimal>(nullable: false),
                     TotalSentHour = table.Column<decimal>(nullable: false),
+                    TotalSentMaslow1 = table.Column<decimal>(nullable: false),
+                    TotalSentMaslow2 = table.Column<decimal>(nullable: false),
+                    TotalSentMaslow3 = table.Column<decimal>(nullable: false),
+                    TotalSentMaslow4 = table.Column<decimal>(nullable: false),
+                    TotalSentMaslow5 = table.Column<decimal>(nullable: false),
                     TotalSentMinute = table.Column<decimal>(nullable: false),
                     TotalSentMonth = table.Column<decimal>(nullable: false),
                     TotalSentSecond = table.Column<decimal>(nullable: false),
                     TotalSentWeek = table.Column<decimal>(nullable: false),
+                    TotalSentXlm = table.Column<decimal>(nullable: false),
                     TotalSentYear = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
@@ -34,9 +40,12 @@ namespace LabasanCryptoFountain.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Address = table.Column<string>(nullable: false),
                     Amount = table.Column<decimal>(nullable: false),
-                    TokenName = table.Column<string>(nullable: false)
+                    Destination = table.Column<string>(nullable: false),
+                    Source = table.Column<string>(nullable: false),
+                    TokenName = table.Column<string>(nullable: false),
+                    sendEnd = table.Column<DateTimeOffset>(nullable: false),
+                    sendStart = table.Column<DateTimeOffset>(nullable: false)
                 },
                 constraints: table =>
                 {

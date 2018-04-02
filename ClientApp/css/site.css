@@ -67,5 +67,6 @@
 }
 
 body {
-    font-family: Tahoma, 'Varela Round', sans-serif;
+    font-family: Tahoma, 'Varela', sans-serif;
+    /* font-family: Tahoma, 'Varela Round', sans-serif; */
 }

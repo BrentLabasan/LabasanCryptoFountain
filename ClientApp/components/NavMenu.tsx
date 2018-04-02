@@ -12,11 +12,14 @@ export class NavMenu extends React.Component<{}, {}> {
                         <span className='icon-bar'></span>
                         <span className='icon-bar'></span>
                     </button>
-                    <Link className='navbar-brand' style={{height: 85}} to={ '/' }>
+                    <Link className='navbar-brand' to={ '/' }>
+                    {/* <Link className='navbar-brand' style={{height: 85}} to={ '/' }> */}
+{/*                     
                     LABASAN <br/>
                     CRYPTO <br/>
-                    FOUNTAIN <br/>
-                    {/* LABASAN.CRYPTO.FOUNTAIN */}
+                    FOUNTAIN <br/> */}
+
+                    <span style={{fontSize: 15, display: "block", overflow: "hidden"}}>LABASAN.CRYPTO.FOUNTAIN</span>
                     </Link>
                 </div>
                 <div className='clearfix'></div>
@@ -31,7 +34,7 @@ export class NavMenu extends React.Component<{}, {}> {
 
                         <li>
                             <NavLink exact to={ '/fountain' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-usd'></span> Fountain
+                                <span className='glyphicon glyphicon-ok'></span> Fountain
                             </NavLink>
                         </li>
                         <li>
