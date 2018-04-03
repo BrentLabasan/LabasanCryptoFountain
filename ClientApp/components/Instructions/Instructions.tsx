@@ -148,38 +148,42 @@ export default class Instructions extends React.Component<IProps, IState> {
         let finalStep = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li> : <li><Button bsStyle="success" onClick={this.handleClick} disabled>Receive</Button></li>;
 
 
-        return <div>
-            <h1>Instructions To Receive {this.props.tokenName} Tokens</h1>
-            <ol>
-                <li>{checkboxStep1} Enter your Stellar account's public address/key.
+        return <div className="container-fluid">
+            <div className="row">
+                <div className="col-xs-12">
+                    <h1>Instructions To Receive {this.props.tokenName} Tokens</h1>
+                    <ol>
+                        <li>{checkboxStep1} Enter your Stellar account's public address/key.
                     <ul>
-                        <li>
-                            {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
-                            <input style={{ width: 600 }} placeholder="example: GCDMFH3RSZR3FLBHSUYPLF2XAG5TWZQDHNX5XG4UELVXICNBESDFMXTJ" type="text" onChange={this.addressFieldChange} value={this.state.address} />
+                                <li>
+                                    {/* <input type="text" onChange={ e => this.addressFieldChange(e) } value={ this.state.address } /> <Button bsStyle="success" onClick={this.handleClick}>Receive</Button> */}
+                                    <input style={{ width: 600 }} placeholder="example: GCDMFH3RSZR3FLBHSUYPLF2XAG5TWZQDHNX5XG4UELVXICNBESDFMXTJ" type="text" onChange={this.addressFieldChange} value={this.state.address} />
+                                </li>
+                            </ul>
                         </li>
-                    </ul>
-                </li>
 
-                <li>{checkboxStep2} Make sure that your Stellar account has enough XLM in it to support base fees.
+                        <li>{checkboxStep2} Make sure that your Stellar account has enough XLM in it to support base fees.
                     <ul>
-                        {/* https://www.stellar.org/developers/guides/concepts/fees.html#minimum-account-balance */}
-                        <li>Each additional XLM-based token you add as a trustline to your account requires .5 XLM.
+                                {/* https://www.stellar.org/developers/guides/concepts/fees.html#minimum-account-balance */}
+                                <li>Each additional XLM-based token you add as a trustline to your account requires .5 XLM.
                             So to be able to add all Time Saved Tokens, have <b>at least 4.5 XLM in your account</b>.
                         </li>
-                    </ul>
-                </li>
+                            </ul>
+                        </li>
 
-                <li>{checkboxStep3} Allow your Stellar account to accept {this.props.tokenName} tokens.
+                        <li>{checkboxStep3} Allow your Stellar account to accept {this.props.tokenName} tokens.
                     <ul>
-                        <li>Asset Code: {this.props.tokenName}</li>
-                        <li>Issuer Account ID: {this.props.issuerAccountId}</li>
-                    </ul>
-                </li>
+                                <li>Asset Code: {this.props.tokenName}</li>
+                                <li>Issuer Account ID: {this.props.issuerAccountId}</li>
+                            </ul>
+                        </li>
 
-                {finalStep}
+                        {finalStep}
 
-            </ol>
-            {/* this.state.address: {this.state.address} */}
+                    </ol>
+                    {/* this.state.address: {this.state.address} */}
+                </div>
+            </div>
         </div>;
     }
 }
