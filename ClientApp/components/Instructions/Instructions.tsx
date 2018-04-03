@@ -7,7 +7,7 @@ import * as FontAwesome from 'react-icons/lib/md'
 
 import * as jquery from 'jquery';
 
-interface IProps  {
+interface IProps {
     tokenName: string;
     issuerAccountId: string;
     address?: string;
@@ -26,8 +26,8 @@ interface IState {
     address?: string;
     addressIsValid?: boolean;
     processingReceiveRequest: boolean;
-    canAcceptToken: boolean;
-    hasEnoughXlm: boolean;
+    canAcceptToken?: boolean;
+    hasEnoughXlm?: boolean;
 }
 
 export default class Instructions extends React.Component<IProps, IState> {
@@ -153,7 +153,10 @@ export default class Instructions extends React.Component<IProps, IState> {
         let checkboxStep1 = this.state.addressIsValid ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />;
         let checkboxStep2 = this.state.addressIsValid && this.state.hasEnoughXlm ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />;
         let checkboxStep3 = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <FontAwesome.MdCheckBox /> : <FontAwesome.MdCheckBoxOutlineBlank />;
-        let finalStep = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li> : <li><Button bsStyle="success" onClick={this.handleClick} disabled>Receive</Button></li>;
+
+        let iconProccessing = <div className="spinner"><h3>PROCESSING</h3><div className="rect1"></div><div className="rect2"> </div><div className="rect3"> </div><div className="rect4"> </div><div className="rect5"> </div></div>;
+
+        let finalStep = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li> : <li><Button bsStyle="success" onClick={this.handleClick} disabled>Received </Button> <br/> {iconProccessing}</li>;
 
 
         return <div>
@@ -187,11 +190,11 @@ export default class Instructions extends React.Component<IProps, IState> {
                                 </ul>
                             </li>
 
-                            {finalStep}
+                            {finalStep} 
 
                         </ol>
                         {/* this.state.address: {this.state.address} */}
-                </Col>
+                    </Col>
                 </Row>
             </Grid>
         </div>;
