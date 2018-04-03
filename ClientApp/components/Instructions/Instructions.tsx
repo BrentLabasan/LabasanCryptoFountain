@@ -119,9 +119,6 @@ export default class Instructions extends React.Component<IProps, IState> {
     }
 
     handleClick = () => {
-        // alert();
-        // let server = new StellarSdk.Server('https://horizon.stellar.org');
-
         jquery.post("/sends/create", {
             Source: "dummy data",
             Destination: this.state.address,
@@ -129,24 +126,14 @@ export default class Instructions extends React.Component<IProps, IState> {
             Amount: 2,
             // SendStart: new DateTimeOffset(new Date()),
             SendStart: moment().format(),
-            beforeSend: function () {
-
+            beforeSend: () => {
+                this.setState({ processingReceiveRequest: true });
             }
-        })
-            .done(function (data) {
-                alert("Data Loaded: " + data);
-            });
-
+        }).done((data) => {
+            this.setState({ processingReceiveRequest: false });
+            alert(this.props.tokenName +  " sent to " + this.state.address);
+        });
     }
-
-    // componentWillMount() {
-    //     console.log("componentWillMount");
-    //     if (!this.state.address) {
-    //         if (localStorage.getItem("lastEnteredAddress")) {
-    //             this.setState({ address: localStorage.getItem("lastEnteredAddress") || "" });
-    //         }
-    //     }
-    // }
 
     public render() {
 
@@ -156,7 +143,7 @@ export default class Instructions extends React.Component<IProps, IState> {
 
         let iconProccessing = <div className="spinner"><h3>PROCESSING</h3><div className="rect1"></div><div className="rect2"> </div><div className="rect3"> </div><div className="rect4"> </div><div className="rect5"> </div></div>;
 
-        let finalStep = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li> : <li><Button bsStyle="success" onClick={this.handleClick} disabled>Received </Button> <br/> {iconProccessing}</li>;
+        let finalStep = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li> : <li><Button bsStyle="success" onClick={this.handleClick} disabled>Received </Button></li>;
 
 
         return <div>
@@ -190,7 +177,9 @@ export default class Instructions extends React.Component<IProps, IState> {
                                 </ul>
                             </li>
 
-                            {finalStep} 
+                            {finalStep}
+                            <br />
+                            {this.state.processingReceiveRequest && iconProccessing}
 
                         </ol>
                         {/* this.state.address: {this.state.address} */}
