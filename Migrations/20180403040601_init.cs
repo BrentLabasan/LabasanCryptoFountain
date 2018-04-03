@@ -42,10 +42,10 @@ namespace LabasanCryptoFountain.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Amount = table.Column<decimal>(nullable: false),
                     Destination = table.Column<string>(nullable: false),
-                    Source = table.Column<string>(nullable: false),
-                    TokenName = table.Column<string>(nullable: false),
-                    sendEnd = table.Column<DateTimeOffset>(nullable: false),
-                    sendStart = table.Column<DateTimeOffset>(nullable: false)
+                    SendEnd = table.Column<DateTimeOffset>(nullable: false),
+                    SendStart = table.Column<DateTimeOffset>(nullable: false),
+                    Source = table.Column<string>(nullable: true),
+                    TokenName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

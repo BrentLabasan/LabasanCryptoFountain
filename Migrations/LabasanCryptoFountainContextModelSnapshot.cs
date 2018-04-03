@@ -68,15 +68,14 @@ namespace LabasanCryptoFountain.Migrations
                     b.Property<string>("Destination")
                         .IsRequired();
 
-                    b.Property<string>("Source")
-                        .IsRequired();
+                    b.Property<DateTimeOffset>("SendEnd");
+
+                    b.Property<DateTimeOffset>("SendStart");
+
+                    b.Property<string>("Source");
 
                     b.Property<string>("TokenName")
                         .IsRequired();
-
-                    b.Property<DateTimeOffset>("sendEnd");
-
-                    b.Property<DateTimeOffset>("sendStart");
 
                     b.HasKey("ID");
 

@@ -14,7 +14,8 @@ This will run the Down methods of any migrations
 
 
 If you need to completely erase the database and start over,
-delete TSF_Fountain.db
+delete LabasanCryptoFountain.db
+delete /Migrations
  run 
 dotnet ef database drop 
 followed by 

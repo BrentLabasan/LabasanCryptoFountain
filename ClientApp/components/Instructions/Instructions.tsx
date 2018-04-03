@@ -122,8 +122,8 @@ export default class Instructions extends React.Component<IProps, IState> {
             Destination: this.state.address,
             TokenName: this.props.tokenName,
             Amount: 2,
-            // sendStart: new DateTimeOffset(new Date()),
-            sendStart: moment().format()
+            // SendStart: new DateTimeOffset(new Date()),
+            SendStart: moment().format()
         })
             .done(function (data) {
                 alert("Data Loaded: " + data);

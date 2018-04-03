@@ -17,7 +17,7 @@ namespace LabasanCryptoFountain.Models
         public string Destination { get; set; }
         
         // [Required]
-        public DateTimeOffset sendStart { get; set; }
-        public DateTimeOffset sendEnd { get; set; }
+        public DateTimeOffset SendStart { get; set; }
+        public DateTimeOffset SendEnd { get; set; }
     }
 }
