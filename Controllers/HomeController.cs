@@ -11,6 +11,7 @@ namespace LabasanCryptoFountain.Controllers
     {
         public IActionResult Index()
         {
+            Console.WriteLine("!!!!!! Brent Home Index");
             return View();
         }
 
