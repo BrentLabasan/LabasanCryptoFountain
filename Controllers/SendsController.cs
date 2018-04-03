@@ -133,11 +133,8 @@ namespace LabasanCryptoFountain.Controllers
 
             Transaction transaction = new Transaction.Builder(new stellar_dotnetcore_sdk.Account(KeyPair.FromAccountId(sendingAccountPubKey), accountResponse.SequenceNumber))
                     .AddOperation(new PaymentOperation.Builder(destination, tst, Convert.ToString(send.Amount)).Build())
-                    // A memo allows you to add your own metadata to a transaction. It's
-                    // optional and does not affect how Stellar treats the transaction.
                     .AddMemo(Memo.Text("Test Transaction"))
                     .Build();
-            // Sign the transaction to prove you are actually the person sending it.
             transaction.Sign(source);
 
             string status = "";
@@ -146,33 +143,16 @@ namespace LabasanCryptoFountain.Controllers
                 if (ModelState.IsValid)
                 {
                     SubmitTransactionResponse response = await server.SubmitTransaction(transaction);
-                    // System.out.println("Success!");
-                    // System.out.println(response);
                     status += "Success!";
-
                     return HtmlEncoder.Default.Encode($"SendsController POST CREATE {status} 1 {source} 2  3  4 ");
-
                 }
-
             }
             catch (Exception e)
             {
-                // System.out.println("Something went wrong!");
-                // System.out.println(e.getMessage());
                 status += "ERROR" + e.Message;
-                // If the result is unknown (no response body, timeout etc.) we simply resubmit
-                // already built transaction:
-                // SubmitTransactionResponse response = server.submitTransaction(transaction);
             }
-
-            // */
-
-
-            // return View(send);
             return HtmlEncoder.Default.Encode($"INVALID {send.ID}, {send.TokenName}");
-
         }
-
 
         // GET: Sends/Edit/5
         public async Task<IActionResult> Edit(int? id)
