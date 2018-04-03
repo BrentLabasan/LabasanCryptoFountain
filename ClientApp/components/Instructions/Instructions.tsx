@@ -40,8 +40,8 @@ export default class Instructions extends React.Component<IProps, IState> {
             address: this.props.address,
             addressIsValid: this.props.addressIsValid,
             hasEnoughXlm: this.props.hasEnoughXlm,
-            canAcceptToken: this.props.canAcceptToken
-            // processingReceiveRequest: false
+            canAcceptToken: this.props.canAcceptToken,
+            processingReceiveRequest: false
         }
     }
 
