@@ -119,12 +119,10 @@ export default class Instructions extends React.Component<IProps, IState> {
     }
 
     handleClick = () => {
-        jquery.post("/sends/create", {
-            Source: "dummy data",
+        jquery.post("/sends/create", {            // Source: "dummy data",
             Destination: this.state.address,
             TokenName: this.props.tokenName,
             Amount: 2,
-            // SendStart: new DateTimeOffset(new Date()),
             SendStart: moment().format(),
             beforeSend: () => {
                 this.setState({ processingReceiveRequest: true });

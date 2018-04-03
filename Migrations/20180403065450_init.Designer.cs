@@ -11,7 +11,7 @@ using System;
 namespace LabasanCryptoFountain.Migrations
 {
     [DbContext(typeof(LabasanCryptoFountainContext))]
-    [Migration("20180403040601_init")]
+    [Migration("20180403065450_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

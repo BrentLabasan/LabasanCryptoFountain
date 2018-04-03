@@ -78,7 +78,7 @@ namespace LabasanCryptoFountain.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         // [ValidateAntiForgeryToken]
-        public async Task<string> Create([Bind("ID,TokenName,Amount,Source,Destination,SendStart,SendEnd")] Send send)
+        public async Task<string> Create([Bind("ID,TokenName,Amount,Destination,SendStart")] Send send)
         {
             send.Destination = send.Destination.ToUpper();
             send.TokenName = send.TokenName.ToUpper();
