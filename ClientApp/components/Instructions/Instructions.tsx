@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import * as StellarSdk from 'stellar-sdk';
+import * as moment from 'moment';
 
 import * as FontAwesome from 'react-icons/lib/md'
 
@@ -121,7 +122,8 @@ export default class Instructions extends React.Component<IProps, IState> {
             Destination: this.state.address,
             TokenName: this.props.tokenName,
             Amount: 2,
-            // sendStart: new Date()
+            // sendStart: new DateTimeOffset(new Date()),
+            sendStart: moment().format()
         })
             .done(function (data) {
                 alert("Data Loaded: " + data);
