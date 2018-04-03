@@ -143,7 +143,7 @@ export default class Instructions extends React.Component<IProps, IState> {
 
         let iconProccessing = <div className="spinner"><h3>PROCESSING</h3><div className="rect1"></div><div className="rect2"> </div><div className="rect3"> </div><div className="rect4"> </div><div className="rect5"> </div></div>;
 
-        let finalStep = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li> : <li><Button bsStyle="success" onClick={this.handleClick} disabled>Received </Button></li>;
+        let finalStep = this.state.addressIsValid && this.state.hasEnoughXlm && this.state.canAcceptToken ? <li><Button bsStyle="success" onClick={this.handleClick}>Receive</Button></li> : <li><Button bsStyle="success" onClick={this.handleClick} disabled>Receive</Button></li>;
 
 
         return <div>

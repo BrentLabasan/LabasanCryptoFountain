@@ -34,7 +34,7 @@ export class NavMenu extends React.Component<{}, {}> {
 
                         <li>
                             <NavLink exact to={ '/fountain' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-ok'></span> Fountain
+                                <span className='glyphicon glyphicon-usd'></span> Fountain
                             </NavLink>
                         </li>
                         <li>
