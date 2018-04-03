@@ -7,14 +7,17 @@ import * as FontAwesome from 'react-icons/lib/md'
 
 import * as jquery from 'jquery';
 
-interface IProps extends IState {
+interface IProps  {
     tokenName: string;
     issuerAccountId: string;
     address?: string;
     addressIsValid?: boolean;
-    canAcceptToken?: boolean;
+    // canAcceptToken?: boolean;
 
     // meow: (address: string) => any;
+    // selectedToken: string;
+    hasEnoughXlm?: boolean;
+    canAcceptToken?: boolean;
     selectedToken: string;
 
 }
@@ -22,8 +25,9 @@ interface IProps extends IState {
 interface IState {
     address?: string;
     addressIsValid?: boolean;
-    hasEnoughXlm?: boolean;
-    canAcceptToken?: boolean;
+    processingReceiveRequest: boolean;
+    canAcceptToken: boolean;
+    hasEnoughXlm: boolean;
 }
 
 export default class Instructions extends React.Component<IProps, IState> {
@@ -37,6 +41,7 @@ export default class Instructions extends React.Component<IProps, IState> {
             addressIsValid: this.props.addressIsValid,
             hasEnoughXlm: this.props.hasEnoughXlm,
             canAcceptToken: this.props.canAcceptToken
+            // processingReceiveRequest: false
         }
     }
 
